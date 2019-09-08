@@ -84,35 +84,38 @@ test02RemovingCustomerShouldNotTakeMoreThan100Milliseconds
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'HernanWilkinson 5/9/2012 18:12'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'jj 9/8/2019 11:40:01'!
 test03CanNotAddACustomerWithEmptyName 
 
-	| customerBook |
+	| customerBook aProblem aClosureMethod|
 			
 	customerBook := CustomerBook new.
+	aProblem:=Error.
+	aClosureMethod:= [ :aCustomerBook|aCustomerBook addCustomerNamed: ''.].
 
-	[ customerBook addCustomerNamed: ''.
-	self fail ]
-		on: Error 
-		do: [ :anError | 
-			self assert: anError messageText = CustomerBook customerCanNotBeEmptyErrorMessage.
-			self assert: customerBook isEmpty ]! !
+	self testCustomerBook: customerBook TestingMethod:aClosureMethod Problem:aProblem AssertionWithError:[ :aCustomerBook :anError| anError messageText = CustomerBook customerCanNotBeEmptyErrorMessage.].
+	
+		self testCustomerBook: customerBook TestingMethod:aClosureMethod Problem:aProblem AssertionWithError:[ :aCustomerBook :anError| aCustomerBook isEmpty ].
+	
+	
+			! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'HAW 8/28/2017 08:57:25'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'jj 9/8/2019 11:40:57'!
 test04CanNotRemoveAnInvalidCustomer
 	
-	| customerBook johnLennon |
+	| customerBook johnLennon aClosureMethod aProblem  |
 			
 	customerBook := CustomerBook new.
 	johnLennon := 'John Lennon'.
 	customerBook addCustomerNamed: johnLennon.
+	aClosureMethod := [:acustomerBook | acustomerBook removeCustomerNamed: 'Paul McCartney'.].
+	aProblem := NotFound.	 
+	 
+	self testCustomerBook:customerBook TestingMethod:aClosureMethod Problem:aProblem AssertionWithError:[:acustomerBook :anError| acustomerBook  numberOfCustomers = 1.].
 	
-	[ customerBook removeCustomerNamed: 'Paul McCartney'.
-	self fail ]
-		on: NotFound 
-		do: [ :anError | 
-			self assert: customerBook numberOfCustomers = 1.
-			self assert: (customerBook includesCustomerNamed: johnLennon) ]
+	self testCustomerBook:customerBook TestingMethod:aClosureMethod Problem:aProblem AssertionWithError:[:acustomerBook :anError| acustomerBook  includesCustomerNamed: johnLennon.].
+	
+
 ! !
 
 !CustomerBookTest methodsFor: 'testing' stamp: 'jj 9/2/2019 20:13:51'!
@@ -183,6 +186,16 @@ test08CanNotSuspendAnAlreadySuspendedCustomer
 	
 ! !
 
+!CustomerBookTest methodsFor: 'testing' stamp: 'jj 9/8/2019 11:39:38'!
+testCustomerBook:customerBook TestingMethod: Method Problem:Problem AssertionWithError:Assertion
+
+
+	[ Method value:customerBook.
+	self fail ]
+		on: Problem 
+		do: [ :anError | 			
+			self assert: (Assertion value:customerBook value:anError)]! !
+
 
 !classDefinition: #CustomerBook category: #'CodigoRepetido-Ejercicio'!
 Object subclass: #CustomerBook
@@ -223,39 +236,27 @@ numberOfActiveCustomers
 	
 	^active size! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'NR 4/3/2019 10:14:26'!
+!CustomerBook methodsFor: 'customer management' stamp: 'jj 9/8/2019 12:34:46'!
 numberOfCustomers
 	
-	^active size + suspended size! !
+	^self numberOfActiveCustomers + self numberOfSuspendedCustomers! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'NR 9/19/2018 17:36:09'!
 numberOfSuspendedCustomers
 	
 	^suspended size! !
 
-!CustomerBook methodsFor: 'customer management' stamp: 'NR 4/3/2019 10:14:26'!
+!CustomerBook methodsFor: 'customer management' stamp: 'jj 9/8/2019 13:20:46'!
 removeCustomerNamed: aName 
- 
-	1 to: active size do: 
-	[ :index |
-		aName = (active at: index)
-			ifTrue: [
-				active removeAt: index.
-				^ aName 
-			] 
-	].
 
-	1 to: suspended size do: 	
-	[ :index |
-		aName = (suspended at: index)
-			ifTrue: [
-				suspended removeAt: index.
-				^ aName 
-			] 
-	].
-	
-	^ NotFound signal.
-! !
+
+	[active remove: aName.]
+		on: Error
+		do: [[suspended remove: aName]
+			on: Error
+			do: [^NotFound signal]].
+		
+	^aName! !
 
 !CustomerBook methodsFor: 'customer management' stamp: 'HernanWilkinson 7/6/2011 17:52'!
 signalCustomerAlreadyExists 
