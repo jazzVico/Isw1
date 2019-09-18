@@ -144,6 +144,30 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:11:56'!
+test01ShouldNotFindOnEmptyStack
+
+	|lookupStack finder suffixStack|
+	lookupStack  := OOStack new.
+	finder := SentenceFinderByPrefix with: lookupStack.
+	
+	suffixStack := finder find:'asd'.
+	
+	self assert: suffixStack isEmpty.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:16:36'!
+test02ShouldOnlyFindOneElementOnElementStack
+
+	|lookupStack finder suffixStack word|
+	word := 'asd'.
+	lookupStack  := OOStack new.
+	lookupStack push: word. 
+	finder := SentenceFinderByPrefix with: lookupStack.
+	
+	suffixStack := finder find:word.
+	
+	self assert: suffixStack size = 1.! !
+
 
 !classDefinition: #Node category: #'Stack-Exercise'!
 Object subclass: #Node
@@ -286,7 +310,49 @@ stackEmptyErrorDescription
 
 !classDefinition: #SentenceFinderByPrefix category: #'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: ''
+	instanceVariableNames: 'inverseStack suffixStack lookupStack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:22:56'!
+find: aString
+	|topElement|
+	lookupStack isEmpty ifTrue: [
+		self reBuild.
+		^suffixStack].
+	
+	topElement := lookupStack pop.
+	inverseStack push: topElement.
+	
+	(topElement is: aString  substringAt: 1) ifTrue:[ suffixStack push:topElement]. 
+	
+	^self find:aString.
+	! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:14:37'!
+initializeWith: aStack
+	
+	inverseStack := OOStack new.
+	lookupStack := aStack.
+	
+	suffixStack := OOStack new.! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 08:54:35'!
+reBuild
+	|element|
+	inverseStack isEmpty ifTrue:[^lookupStack].
+
+	element := inverseStack pop.
+	lookupStack push: element.
+	self reBuild.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SentenceFinderByPrefix class' category: #'Stack-Exercise'!
+SentenceFinderByPrefix class
+	instanceVariableNames: ''!
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:13:37'!
+with: aStack
+	^self new initializeWith: aStack.! !
