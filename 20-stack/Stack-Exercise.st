@@ -139,12 +139,12 @@ test10CanNotTopWhenThereAreNoObjectsInTheStack
 
 !classDefinition: #SentenceFinderByPrefixTest category: #'Stack-Exercise'!
 TestCase subclass: #SentenceFinderByPrefixTest
-	instanceVariableNames: 'stackForTesting emptyStackForTesting finder'
+	instanceVariableNames: 'stackForTesting emptyStackForTesting finder smallStack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'jj 9/19/2019 00:58:13'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 14:37:07'!
 setUp
 	stackForTesting:= OOStack new. 
 	stackForTesting push: 'Muchos años después, frente al pelotón de fusilamiento, el coronel Aureliano Buendía había de recordar aquella tarde remota en que su padre lo llevó a conocer el hielo.'.
@@ -160,6 +160,11 @@ setUp
 	stackForTesting push: 'Tenía la rara virtud de no existir por completo sino en el momento oportuno'.
 	
 	emptyStackForTesting := OOStack new.
+	
+	smallStack := OOStack new.
+	smallStack push: 'first'.
+	smallStack push: 'second'.
+	smallStack push: 'third'.	
 	
 	finder := SentenceFinderByPrefix new! !
 
@@ -227,6 +232,55 @@ test06ShouldNotFindTheElement
 	suffixStack := finder find:'guitarra' in:stackForTesting.
 	
 		self assert: suffixStack size = 0.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 14:32:09'!
+test07ShouldFindOneElementOnElementStackForEachFind
+
+	|  suffixStack word found|
+	word := 'Sólo'.
+
+	
+	
+	suffixStack := finder find:word in:stackForTesting.
+	found := suffixStack top.	
+	self assert: suffixStack size = 1.
+	self assert: (found copyFrom: 1 to: 4) = word.
+	
+	suffixStack := finder find:word in:stackForTesting.
+	found := suffixStack top.	
+	self assert: suffixStack size = 1.
+	self assert: (found copyFrom: 1 to: 4) = word.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 14:44:09'!
+test08StackShouldBeTheSameSizeAfterFind
+
+	|word|
+	word := 'Sólo'.
+
+	finder find: word in: stackForTesting.
+	
+	self assert: stackForTesting size = 11.
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 14:41:55'!
+test09StackShouldBeTheSameAfterFind
+
+	|word stackTop|
+	word := 'Sólo'.
+
+	
+	
+	finder find:word in:smallStack.
+	stackTop := smallStack pop.
+	self assert: stackTop = 'third'.
+	
+	stackTop := smallStack pop.
+	self assert: stackTop = 'second'.
+	
+	stackTop := smallStack pop.
+	self assert: stackTop = 'first'.
+	
+	self assert: smallStack isEmpty.! !
 
 
 !classDefinition: #NameOfSubclass category: #'Stack-Exercise'!
@@ -418,14 +472,6 @@ initialize
 	
 	inverseStack := OOStack new.
 	! !
-
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:14:37'!
-initializeWith: aStack
-	
-	inverseStack := OOStack new.
-	lookupStack := aStack.
-	
-	suffixStack := OOStack new.! !
 
 !SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 23:55:12'!
 reBuild: aStack
