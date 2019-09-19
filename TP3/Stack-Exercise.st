@@ -144,29 +144,61 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:11:56'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 23:58:36'!
 test01ShouldNotFindOnEmptyStack
 
 	|lookupStack finder suffixStack|
 	lookupStack  := OOStack new.
-	finder := SentenceFinderByPrefix with: lookupStack.
+	finder := SentenceFinderByPrefix new.
 	
-	suffixStack := finder find:'asd'.
+	suffixStack := finder find:'asd' in:lookupStack.
 	
 	self assert: suffixStack isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:16:36'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 23:58:57'!
 test02ShouldOnlyFindOneElementOnElementStack
 
 	|lookupStack finder suffixStack word|
 	word := 'asd'.
 	lookupStack  := OOStack new.
 	lookupStack push: word. 
-	finder := SentenceFinderByPrefix with: lookupStack.
+	finder := SentenceFinderByPrefix new.
 	
-	suffixStack := finder find:word.
+	suffixStack := finder find:word in:lookupStack.
 	
 	self assert: suffixStack size = 1.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 00:28:53'!
+test03ShouldBreakOnEmptyString
+
+	|lookupStack finder word|
+	word := 'asd'.
+	lookupStack  := OOStack new.
+	lookupStack push: word. 
+	finder := SentenceFinderByPrefix new.
+		
+	self
+		should: [ finder find:'' in:lookupStack]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = SentenceFinderByPrefix invalidStringErrorDescription ]
+		
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 00:29:24'!
+test04ShouldBreakOnStringWithSpaces
+
+	|lookupStack finder word|
+	word := 'asd'.
+	lookupStack  := OOStack new.
+	lookupStack push: word. 
+	finder := SentenceFinderByPrefix new.
+	
+	self
+		should: [ finder find:'asd ' in:lookupStack]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = SentenceFinderByPrefix invalidStringErrorDescription ]! !
 
 
 !classDefinition: #Node category: #'Stack-Exercise'!
@@ -310,42 +342,55 @@ stackEmptyErrorDescription
 
 !classDefinition: #SentenceFinderByPrefix category: #'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
-	instanceVariableNames: 'inverseStack suffixStack lookupStack'
+	instanceVariableNames: 'inverseStack'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:22:56'!
-find: aString
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 00:23:01'!
+checkForValidString: aString
+
+	aString isEmpty ifTrue:[^self class error: self class invalidStringErrorDescription].
+	(aString findString: ' ') = 0 ifFalse:[^self class error: self class invalidStringErrorDescription].
+! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 00:13:04'!
+find: aString in: aStack
+	| anwserStack |
+	self checkForValidString: aString.
+	anwserStack := OOStack new.
+	^self find: aString in: aStack  storeAt: anwserStack.
+! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 00:03:00'!
+find: aString in: aStack storeAt: anAnswerStack
 	|topElement|
-	lookupStack isEmpty ifTrue: [
-		self reBuild.
-		^suffixStack].
+	aStack isEmpty ifTrue: [
+		self reBuild: aStack.
+		^anAnswerStack].
 	
-	topElement := lookupStack pop.
+	topElement := aStack pop.
 	inverseStack push: topElement.
 	
-	(topElement is: aString  substringAt: 1) ifTrue:[ suffixStack push:topElement]. 
+	(topElement is: aString  substringAt: 1) ifTrue:[ anAnswerStack push:topElement]. 
 	
-	^self find:aString.
+	^self find:aString in:aStack storeAt:anAnswerStack.
 	! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:14:37'!
-initializeWith: aStack
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 23:59:19'!
+initialize
 	
 	inverseStack := OOStack new.
-	lookupStack := aStack.
-	
-	suffixStack := OOStack new.! !
+	! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 08:54:35'!
-reBuild
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 23:55:12'!
+reBuild: aStack
 	|element|
-	inverseStack isEmpty ifTrue:[^lookupStack].
+	inverseStack isEmpty ifTrue:[^aStack].
 
 	element := inverseStack pop.
-	lookupStack push: element.
-	self reBuild.! !
+	aStack push: element.
+	self reBuild: aStack.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -353,6 +398,7 @@ reBuild
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
 
-!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:13:37'!
-with: aStack
-	^self new initializeWith: aStack.! !
+!SentenceFinderByPrefix class methodsFor: 'error description' stamp: 'J 9/19/2019 00:10:53'!
+invalidStringErrorDescription
+	
+	^ 'String has an invalid format'! !
