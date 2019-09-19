@@ -139,66 +139,102 @@ test10CanNotTopWhenThereAreNoObjectsInTheStack
 
 !classDefinition: #SentenceFinderByPrefixTest category: #'Stack-Exercise'!
 TestCase subclass: #SentenceFinderByPrefixTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'stackForTesting emptyStackForTesting finder'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 23:58:36'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'jj 9/19/2019 00:58:13'!
+setUp
+	stackForTesting:= OOStack new. 
+	stackForTesting push: 'Muchos años después, frente al pelotón de fusilamiento, el coronel Aureliano Buendía había de recordar aquella tarde remota en que su padre lo llevó a conocer el hielo.'.
+	stackForTesting push: 'El mundo era tan reciente, que muchas cosas carecían de nombre, y para mencionarlas había que señarlarlas con el dedo.'.
+	stackForTesting push: 'Sólo él sabía entonces que su aturdido corazón estaba condenado para siempre a la incertidumbre. '.
+	stackForTesting push: 'el mundo se redujo en la superficie de su piel, y el interior quedó a salvo de toda amargura. '.
+	stackForTesting push: 'Elaboró el plan con tanto odio que la estremeció la idea de que lo habría hecho de igual modo si hubiera sido con amor.'.
+	stackForTesting push: 'No se le había ocurrido pensar hasta entonces que la literatura fuera el mejor juguete que se había inventado para burlarse de la gente.'.
+	stackForTesting push: 'Había perdido en la espera la fuerza de los muslos, la dureza de los senos, el hábito de la ternura, pero conservaba intacta la locura del corazón.'.
+	stackForTesting push: 'No entendía cómo se llegaba al extremo de hacer una guerra por cosas que no podían tocarse con las manos.'.
+	stackForTesting push: 'Uno no se muere cuando debe, sino cuando puede'.
+	stackForTesting push:'el secreto de una buena vejez no es otra cosa que un pacto honrado con la soledad'.
+	stackForTesting push: 'Tenía la rara virtud de no existir por completo sino en el momento oportuno'.
+	
+	emptyStackForTesting := OOStack new.
+	
+	finder := SentenceFinderByPrefix new! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'jj 9/19/2019 00:58:23'!
 test01ShouldNotFindOnEmptyStack
 
-	|lookupStack finder suffixStack|
-	lookupStack  := OOStack new.
-	finder := SentenceFinderByPrefix new.
+	| suffixStack|
 	
-	suffixStack := finder find:'asd' in:lookupStack.
+	
+	
+	suffixStack := finder find:'asd' in:emptyStackForTesting.
 	
 	self assert: suffixStack isEmpty.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 23:58:57'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'jj 9/19/2019 00:58:33'!
 test02ShouldOnlyFindOneElementOnElementStack
 
-	|lookupStack finder suffixStack word|
-	word := 'asd'.
-	lookupStack  := OOStack new.
-	lookupStack push: word. 
-	finder := SentenceFinderByPrefix new.
+	|  suffixStack word|
+	word := 'Sólo'.
+
 	
-	suffixStack := finder find:word in:lookupStack.
+	
+	suffixStack := finder find:word in:stackForTesting.
 	
 	self assert: suffixStack size = 1.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 00:28:53'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'jj 9/19/2019 00:58:52'!
 test03ShouldBreakOnEmptyString
-
-	|lookupStack finder word|
-	word := 'asd'.
-	lookupStack  := OOStack new.
-	lookupStack push: word. 
-	finder := SentenceFinderByPrefix new.
-		
+	
 	self
-		should: [ finder find:'' in:lookupStack]
+		should: [ finder find:'' in:stackForTesting]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = SentenceFinderByPrefix invalidStringErrorDescription ]
 		
 ! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'J 9/19/2019 00:29:24'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'jj 9/19/2019 00:59:44'!
 test04ShouldBreakOnStringWithSpaces
 
-	|lookupStack finder word|
-	word := 'asd'.
-	lookupStack  := OOStack new.
-	lookupStack push: word. 
-	finder := SentenceFinderByPrefix new.
-	
 	self
-		should: [ finder find:'asd ' in:lookupStack]
+		should: [ finder find:'asd ' in:stackForTesting]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = SentenceFinderByPrefix invalidStringErrorDescription ]! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'jj 9/19/2019 01:27:08'!
+test05ShouldOnlyFindTheElementsWithPrefixInLowerCase
+		| suffixStack primerFrase segundaFrase prefix|
+		
+		prefix:='el'.
+	suffixStack:= finder find:prefix in:stackForTesting.
+	
+		self assert: suffixStack size = 2.
+		primerFrase:=suffixStack top.
+		self assert: [(primerFrase copyFrom: 1 to: 2)=prefix].
+		suffixStack pop.
+		segundaFrase:= suffixStack top.
+		self assert: [(segundaFrase copyFrom: 1 to: 2)=prefix].! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'jj 9/19/2019 01:20:10'!
+test06ShouldNotFindTheElement
+	| suffixStack |
+
+	suffixStack := finder find:'guitarra' in:stackForTesting.
+	
+		self assert: suffixStack size = 0.! !
+
+
+!classDefinition: #NameOfSubclass category: #'Stack-Exercise'!
+Object subclass: #NameOfSubclass
+	instanceVariableNames: 'lookUpStack'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
 
 
 !classDefinition: #Node category: #'Stack-Exercise'!
@@ -383,6 +419,14 @@ initialize
 	inverseStack := OOStack new.
 	! !
 
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:14:37'!
+initializeWith: aStack
+	
+	inverseStack := OOStack new.
+	lookupStack := aStack.
+	
+	suffixStack := OOStack new.! !
+
 !SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 23:55:12'!
 reBuild: aStack
 	|element|
@@ -397,6 +441,11 @@ reBuild: aStack
 !classDefinition: 'SentenceFinderByPrefix class' category: #'Stack-Exercise'!
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'J 9/18/2019 10:13:37'!
+with: aStack
+	^self new initializeWith: aStack.! !
+
 
 !SentenceFinderByPrefix class methodsFor: 'error description' stamp: 'J 9/19/2019 00:10:53'!
 invalidStringErrorDescription
