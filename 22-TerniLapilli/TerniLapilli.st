@@ -66,22 +66,6 @@ test05XAndOPlayTwicePiecesAreWellPlaced
 	self assert: aTerniLapilliGame oPositions includes: (1@0).
 	self assert: aTerniLapilliGame oAmountOfpieces = 2.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'J 10/10/2019 18:32:28'!
-test05xxxx
-	|aTerniLapilliGame|
-	
-	aTerniLapilliGame := TerniLapilli new.
-	aTerniLapilliGame putXat: (0@1).
-	aTerniLapilliGame putOat:(0@0).
-	aTerniLapilliGame putXat: (0@2).
-	aTerniLapilliGame putOat:(1@0).
-	self assert: aTerniLapilliGame xPositions includes: (0@1).
-	self assert: aTerniLapilliGame xPositions includes: (0@2).
-	self assert: aTerniLapilliGame xAmountOfpieces = 2.
-	self assert: aTerniLapilliGame oPositions includes: (0@0).
-	self assert: aTerniLapilliGame oPositions includes: (1@0).
-	self assert: aTerniLapilliGame oAmountOfpieces = 2.! !
-
 !TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'J 10/10/2019 18:44:13'!
 test06OCantStart
 	|aTerniLapilliGame|
@@ -93,6 +77,78 @@ test06OCantStart
 			aTerniLapilliGame putOat:(0@0).]
 		 raise: Error - MessageNotUnderstood 
 		description:  'O cant start a game of Ternilapilli'.
+! !
+
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 15:25:59'!
+test07XCantPlayTwiceInSequence
+	|aTerniLapilliGame|
+	
+	
+	self should: [ 
+			aTerniLapilliGame := TerniLapilli new.
+			aTerniLapilliGame putXat: (0@1).	
+			aTerniLapilliGame putXat: (0@2).]
+		 raise: Error - MessageNotUnderstood 
+		description:  'player cant play twice in sequence'.
+	
+
+	
+! !
+
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 15:26:05'!
+test08OCantPlayTwiceInSequence
+	|aTerniLapilliGame|
+	
+	
+	self should: [ 
+			aTerniLapilliGame := TerniLapilli new.
+			aTerniLapilliGame putXat: (0@1).
+			aTerniLapilliGame putOat: (0@0).	
+			aTerniLapilliGame putOat: (0@2).]
+		 raise: Error - MessageNotUnderstood 
+		description:  'player cant play twice in sequence'.
+	
+
+	
+! !
+
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 15:31:53'!
+test08XCantPutFourPieces
+	|aTerniLapilliGame|
+	
+	
+	self should: [ 
+			aTerniLapilliGame := TerniLapilli new.
+			aTerniLapilliGame putXat: (0@1).
+			aTerniLapilliGame putOat: (0@0).
+			aTerniLapilliGame putXat: (2@2).
+			aTerniLapilliGame putOat: (1@0).
+			aTerniLapilliGame putXat: (0@2).
+			aTerniLapilliGame putOat: (1@2).	
+			aTerniLapilliGame putXat: (2@0).]
+		 raise: Error - MessageNotUnderstood  
+		description:  'player cant place more than three pieces'.
+	
+
+	
+! !
+
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 16:32:59'!
+test09XCanMoveToValidPlace
+	|aTerniLapilliGame|
+	
+
+	aTerniLapilliGame := TerniLapilli new.
+	aTerniLapilliGame putXat: (0@1).
+	aTerniLapilliGame putOat: (0@0).
+	aTerniLapilliGame putXat: (2@2).
+	aTerniLapilliGame putOat: (1@0).
+	aTerniLapilliGame putXat: (0@2).
+	aTerniLapilliGame putOat: (1@2).	
+	aTerniLapilliGame xMove: (0@2) at:(1@1).
+
+	self assert: aTerniLapilliGame xPositions includes: (1@1).
+	self deny: (aTerniLapilliGame xPositions includes: (0@2)).
 ! !
 
 
@@ -117,19 +173,30 @@ oAmountOfpieces
 oPositions
 	^oBoardPieces! !
 
-!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'J 10/10/2019 18:42:38'!
+!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 15:24:20'!
 putOat: aPoint 
 	previousPlayer = nil ifTrue:[^self error: self class anInvalidStartErrorDescription].
-	oBoardPieces add: aPoint.! !
+	previousPlayer=#O ifTrue:[^self error: self class playerCantPlayTwiceInSequenceErrorDescription].
+	previousPlayer:= #O.
+	oBoardPieces add: aPoint.
+	! !
 
-!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'J 10/10/2019 18:44:58'!
+!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 15:35:22'!
 putXat: aPoint 
+	previousPlayer=#X ifTrue:[^self error: self class playerCantPlayTwiceInSequenceErrorDescription].
+	self xAmountOfpieces=3 ifTrue:[^self error: self class playerCantPlaceMoreThanThreePiecesErrorDescription].
 	previousPlayer := #X.
-	xBoardPieces add:aPoint.! !
+	xBoardPieces add:aPoint.
+	! !
 
 !TerniLapilli methodsFor: 'as yet unclassified' stamp: 'J 10/10/2019 18:29:57'!
 xAmountOfpieces
 	^xBoardPieces size.! !
+
+!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 16:33:37'!
+xMove: aPoint at: aPoint2 
+	self xPositions remove:  aPoint.
+	self xPositions  add: aPoint2 .! !
 
 !TerniLapilli methodsFor: 'as yet unclassified' stamp: 'J 10/10/2019 18:20:24'!
 xPositions
@@ -145,3 +212,11 @@ TerniLapilli class
 !TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'J 10/10/2019 18:44:19'!
 anInvalidStartErrorDescription
 	^'O cant start a game of Ternilapilli'! !
+
+!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 15:32:59'!
+playerCantPlaceMoreThanThreePiecesErrorDescription
+	^'player cant place more than three pieces'! !
+
+!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 15:24:27'!
+playerCantPlayTwiceInSequenceErrorDescription
+	^'player cant play twice in sequence'! !
