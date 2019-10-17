@@ -197,77 +197,6 @@ test12OCantPutFourPieces
 	
 ! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 19:39:13'!
-test13XCantMoveAPieceTheyDoesntHave
-	|aTerniLapilliGame|
-	
-	aTerniLapilliGame := TerniLapilli new.
-	aTerniLapilliGame putXat: (0@1).
-	aTerniLapilliGame putOat: (0@0).
-	aTerniLapilliGame putXat: (2@2).
-	aTerniLapilliGame putOat: (1@0).
-	aTerniLapilliGame putXat: (0@2).
-	aTerniLapilliGame putOat: (1@2).
-	self should: [ 	
-			aTerniLapilliGame xMoveFrom:(1@1)to:(2@1).			
-			]
-		 raise: Error - MessageNotUnderstood  
-		withExceptionDo:[:anError|
-			self assert: anError messageText = TerniLapilli playerDoesNotHaveApieceInThatPositionErrorDescription 
-			]
-	
-
-	
-! !
-
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 19:41:02'!
-test14OCantMoveAPieceTheyDoesntHave
-	|aTerniLapilliGame|
-	
-	aTerniLapilliGame := TerniLapilli new.
-	aTerniLapilliGame putXat: (0@1).
-	aTerniLapilliGame putOat: (0@0).
-	aTerniLapilliGame putXat: (2@2).
-	aTerniLapilliGame putOat: (1@0).
-	aTerniLapilliGame putXat: (0@2).
-	aTerniLapilliGame putOat: (1@2).
-	aTerniLapilliGame xMoveFrom:(0@2)to:(1@1).
-	self should: [ 	
-			aTerniLapilliGame oMoveFrom:(1@1)to:(2@1).			
-			]
-		 raise: Error - MessageNotUnderstood  
-		withExceptionDo:[:anError|
-			self assert: anError messageText = TerniLapilli playerDoesNotHaveApieceInThatPositionErrorDescription 
-			]
-	
-
-	
-! !
-
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 19:46:23'!
-test15OCantPlaceaPieceWhereXhasApiece
-	|aTerniLapilliGame|
-	
-	aTerniLapilliGame := TerniLapilli new.
-	aTerniLapilliGame putXat: (0@1).
-	aTerniLapilliGame putOat: (0@0).
-	aTerniLapilliGame putXat: (2@2).
-	aTerniLapilliGame putOat: (1@0).
-	aTerniLapilliGame putXat: (0@2).
-	
-	
-	self should: [ 	
-				aTerniLapilliGame putOat: (0@2).		
-			]
-		 raise: Error - MessageNotUnderstood  
-		withExceptionDo:[:anError|
-			self assert: anError messageText = TerniLapilli playerCantPlacePieceIntoOthersPositionErrorDescription 
-			]
-	
-
-	
-! !
-
 
 !classDefinition: #TerniLapilli category: #TerniLapilli!
 Object subclass: #TerniLapilli
@@ -286,9 +215,9 @@ initialize
 oAmountOfpieces
 	^oBoardPieces size.! !
 
-!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 19:42:29'!
+!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 18:21:07'!
 oMoveFrom: aPoint to: aPoint2 
-	(self oPositions includes:aPoint) ifFalse: [^self error: self class playerDoesNotHaveApieceInThatPositionErrorDescription ].
+	
 	self oPositions remove:aPoint .
 	self oPositions add:aPoint2 .
 	previousPlayer:=#O.! !
@@ -297,12 +226,11 @@ oMoveFrom: aPoint to: aPoint2
 oPositions
 	^oBoardPieces! !
 
-!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 19:50:41'!
+!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 18:22:40'!
 putOat: aPoint 
-	previousPlayer = nil ifTrue:[^self error: self class anInvalidStartErrorDescription].	
-	previousPlayer=#O ifTrue:[^self error: self class playerCantPlayTwiceInSequenceErrorDescription].	
+	previousPlayer = nil ifTrue:[^self error: self class anInvalidStartErrorDescription].
+	previousPlayer=#O ifTrue:[^self error: self class playerCantPlayTwiceInSequenceErrorDescription].
 	self oAmountOfpieces=3 ifTrue:[^self error: self class playerCantPlaceMoreThanThreePiecesErrorDescription].
-	(self xPositions includes:aPoint) ifTrue:[^self error:self class playerCantPlacePieceIntoOthersPositionErrorDescription].
 	previousPlayer:= #O.
 	oBoardPieces add: aPoint.
 	! !
@@ -319,9 +247,8 @@ putXat: aPoint
 xAmountOfpieces
 	^xBoardPieces size.! !
 
-!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 19:39:38'!
+!TerniLapilli methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 18:35:49'!
 xMoveFrom: aPoint to: aPoint2 
-	(self xPositions includes:aPoint) ifFalse: [^self error: self class playerDoesNotHaveApieceInThatPositionErrorDescription ].
 	self xPositions remove:  aPoint.
 	self xPositions  add: aPoint2 .
 	previousPlayer := #X.! !
@@ -345,14 +272,6 @@ anInvalidStartErrorDescription
 playerCantPlaceMoreThanThreePiecesErrorDescription
 	^'player cant place more than three pieces'! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 19:47:14'!
-playerCantPlacePieceIntoOthersPositionErrorDescription
-	^'player Cant Place Piece Into Others Position'! !
-
 !TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'jj 10/16/2019 15:24:27'!
 playerCantPlayTwiceInSequenceErrorDescription
 	^'player cant play twice in sequence'! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'JJ 10/16/2019 19:38:54'!
-playerDoesNotHaveApieceInThatPositionErrorDescription
-	^'player does not have a piece in that position'! !
