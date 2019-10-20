@@ -184,8 +184,8 @@ test18CantAddTwiceSameAccount
 		self assert: Portfolio alreadyAddedXXXErrorDescription = anError messageText ].
 	! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'jj 10/17/2019 21:48:16'!
-test19CantAddPorfolioToItsSelf
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 12:00:04'!
+test19CantAddPorfolioToItSelf
 	
 	| portfolio|
 	
@@ -209,6 +209,23 @@ test20CantAddPortfolioWithAccountIfTheAccountIsAlreadyAdded
 	portfolio2 add: account1.
 	self should:[
 		portfolio add: portfolio2.]
+	raise:Error-MessageNotUnderstood
+	withExceptionDo:[:anError|
+		self assert: Portfolio alreadyAddedXXXErrorDescription = anError messageText ].
+	! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 12:01:42'!
+test21CantAddAccountToPortfolioToAPortfolioThatIsIncludedInAPortfolioWithThatAccount
+	
+	| portfolio account1 portfolio2 |
+	account1 := ReceptiveAccount new.	
+	portfolio := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio add: account1.
+	portfolio add: portfolio2.
+
+	self should:[
+		portfolio2 add: account1.]
 	raise:Error-MessageNotUnderstood
 	withExceptionDo:[:anError|
 		self assert: Portfolio alreadyAddedXXXErrorDescription = anError messageText ].
@@ -417,6 +434,20 @@ Object subclass: #XXX
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!XXX methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 10:46:37'!
+addParent: aPortfolio 
+	self parents add: aPortfolio! !
+
+!XXX methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 11:35:49'!
+hasOneParentInCommon: aPortfolio
+	
+	self subclassResponsibility .! !
+
+!XXX methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 10:43:52'!
+parents
+
+	^parents.! !
+
 
 !classDefinition: #Portfolio category: #'Portfolio-Ejercicio'!
 XXX subclass: #Portfolio
@@ -429,11 +460,14 @@ XXX subclass: #Portfolio
 accountsAndPortfolios
 	^AccountsAndPortfolios ! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'jj 10/17/2019 21:55:12'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 11:23:00'!
 add: anAccount 
+
 	(self accountsAndPortfolios includes: anAccount) ifTrue:[ ^self error: self class alreadyAddedXXXErrorDescription ].
 	(self==anAccount)ifTrue:[^self error: self class alreadyAddedXXXErrorDescription ].
-	(self parents includes: anAccount) ifTrue:[^self error: self class alreadyAddedXXXErrorDescription ].
+	(anAccount hasOneParentInCommon: self) ifTrue:[^self error: self class alreadyAddedXXXErrorDescription ].
+	anAccount addParent: self.
+	(anAccount parents includes:anAccount) ifTrue:[anAccount parents remove:anAccount].
 	self accountsAndPortfolios add: anAccount! !
 
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'jj 10/17/2019 19:29:08'!
@@ -444,16 +478,24 @@ amountOfAccountsAndPortfolios
 balance
 	^ self accountsAndPortfolios sum:[:anAccount| anAccount balance ] ifEmpty:[0].! !
 
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 11:34:43'!
+hasOneParentInCommon: aPortfolio
+
+	self parents do:[:aParent | (aPortfolio parents includes: aParent) ifTrue:[^true]].
+	self accountsAndPortfolios do: [:anAccount | (anAccount hasOneParentInCommon: aPortfolio) ifTrue:[^true]].
+	^false.! !
+
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'jj 10/17/2019 21:28:04'!
 hasRegistered: aTransaction
 
 	^ self transactions includes: aTransaction 
 ! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'jj 10/17/2019 21:40:21'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 11:19:59'!
 initialize
 	AccountsAndPortfolios := OrderedCollection new.
-	parents:= OrderedCollection new.! !
+	parents:= OrderedCollection new.
+	parents add: self.! !
 
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'jj 10/17/2019 20:46:13'!
 transactions
@@ -512,3 +554,10 @@ hasRegistered: aTransaction
 
 	^ transactions includes: aTransaction 
 ! !
+
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 11:34:53'!
+hasOneParentInCommon: aPortfolio
+
+	self parents do:[:aParent | (aPortfolio parents includes: aParent) ifTrue:[^true]].
+	^false.! !
