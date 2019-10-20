@@ -231,6 +231,68 @@ test21CantAddAccountToPortfolioToAPortfolioThatIsIncludedInAPortfolioWithThatAcc
 		self assert: Portfolio alreadyAddedXXXErrorDescription = anError messageText ].
 	! !
 
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'jj 10/20/2019 15:07:37'!
+test22PortfolioWithAccountCantAddToOneOfItsPortfoliosANOtherOneWithThatAccount
+	
+	| portfolio account1 portfolio2 portfolio3|
+	account1 := ReceptiveAccount new.	
+	portfolio := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3:=Portfolio new.
+	portfolio add: account1.
+	portfolio2 add: portfolio3.
+	portfolio2 add: account1.
+
+	self should:[
+		portfolio3 add: portfolio.]
+	raise:Error-MessageNotUnderstood
+	withExceptionDo:[:anError|
+		self assert: Portfolio alreadyAddedXXXErrorDescription = anError messageText ].
+	! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'jj 10/20/2019 15:22:09'!
+test23TwoPortfoliosThatShareAnAccountAndAthirPortolioShouldFailWhenAccountIsAddedToSharedPortfolio
+	
+	| portfolio account1 portfolio2 portfolio3|
+	account1 := ReceptiveAccount new.	
+	portfolio := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3:=Portfolio new.
+	portfolio add: account1.
+	portfolio add: portfolio2.
+	portfolio3 add: account1.
+	portfolio3 add: portfolio2.
+
+	self should:[
+		portfolio2 add: account1.]
+	raise:Error-MessageNotUnderstood
+	withExceptionDo:[:anError|
+		self assert: Portfolio alreadyAddedXXXErrorDescription = anError messageText ].
+	! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'jj 10/20/2019 17:00:16'!
+test24
+	
+	| portfolio account1 portfolio2 portfolio3 portfolio4 portfolio5|
+	account1 := ReceptiveAccount new.	
+	portfolio := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3:=Portfolio new.
+	portfolio4:=Portfolio new.
+	portfolio5:=Portfolio new.
+	portfolio add:account1.
+	portfolio2 add: account1.
+	portfolio3 add:account1.
+	portfolio4 add:portfolio.
+	portfolio5 add:portfolio4.
+
+	self should:[
+		portfolio5 add: account1.]
+	raise:Error-MessageNotUnderstood
+	withExceptionDo:[:anError|
+		self assert: Portfolio alreadyAddedXXXErrorDescription = anError messageText ].
+	! !
+
 
 !classDefinition: #ReceptiveAccountTest category: #'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
@@ -434,9 +496,9 @@ Object subclass: #XXX
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!XXX methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 10:46:37'!
+!XXX methodsFor: 'as yet unclassified' stamp: 'jj 10/20/2019 17:11:39'!
 addParent: aPortfolio 
-	self parents add: aPortfolio! !
+	self subclassResponsibility .! !
 
 !XXX methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 11:35:49'!
 hasOneParentInCommon: aPortfolio
@@ -447,6 +509,16 @@ hasOneParentInCommon: aPortfolio
 parents
 
 	^parents.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'XXX class' category: #'Portfolio-Ejercicio'!
+XXX class
+	instanceVariableNames: ''!
+
+!XXX class methodsFor: 'as yet unclassified' stamp: 'jj 10/20/2019 16:56:19'!
+alreadyAddedXXXErrorDescription
+	^'account already in portfolio'! !
 
 
 !classDefinition: #Portfolio category: #'Portfolio-Ejercicio'!
@@ -460,15 +532,20 @@ XXX subclass: #Portfolio
 accountsAndPortfolios
 	^AccountsAndPortfolios ! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 11:23:00'!
-add: anAccount 
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'jj 10/20/2019 17:06:42'!
+add: anXXX
+	
+ 	"si tiene un padre en comun no se puede agregar"	 
+	(anXXX hasOneParentInCommon: self) ifTrue:[^self error: self class alreadyAddedXXXErrorDescription ].
+	anXXX addParent: self.
+	"si soy mi propio padre, osea nadie me agrego, actualizo mi padre"
+	(anXXX parents includes:anXXX) ifTrue:[anXXX parents remove:anXXX].
+	self accountsAndPortfolios add: anXXX! !
 
-	(self accountsAndPortfolios includes: anAccount) ifTrue:[ ^self error: self class alreadyAddedXXXErrorDescription ].
-	(self==anAccount)ifTrue:[^self error: self class alreadyAddedXXXErrorDescription ].
-	(anAccount hasOneParentInCommon: self) ifTrue:[^self error: self class alreadyAddedXXXErrorDescription ].
-	anAccount addParent: self.
-	(anAccount parents includes:anAccount) ifTrue:[anAccount parents remove:anAccount].
-	self accountsAndPortfolios add: anAccount! !
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'jj 10/20/2019 17:15:35'!
+addParent: aPortfolio 
+	self parents add: aPortfolio.
+	self accountsAndPortfolios do:[:acc| acc addParent:aPortfolio].! !
 
 !Portfolio methodsFor: 'as yet unclassified' stamp: 'jj 10/17/2019 19:29:08'!
 amountOfAccountsAndPortfolios
@@ -521,6 +598,10 @@ XXX subclass: #ReceptiveAccount
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
+
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'jj 10/20/2019 17:11:08'!
+addParent: aPortfolio 
+	self parents add: aPortfolio! !
 
 !ReceptiveAccount methodsFor: 'initialization' stamp: 'jj 10/17/2019 21:40:51'!
 initialize
