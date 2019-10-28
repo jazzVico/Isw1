@@ -892,7 +892,7 @@ test11TreeStructureOfEmptyPortfolio
 	res := 'empty portfolio',String newLineString .
 	self assert: (treeStructure value = res ).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 01:54:41'!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 15:57:14'!
 test12TreeStructureOfPortfolioWithAccount
 |portfolio account treeStructure res|
 	
@@ -902,11 +902,11 @@ test12TreeStructureOfPortfolioWithAccount
 	portfolio add: account.
 	
 	res :='Portfolio de juan', String newLineString .	
-	res:=res,'cuenta de juan', String newLineString .
+	res:=res,'   ','cuenta de juan', String newLineString .
 	
 	self assert: (treeStructure value = res ).! !
 
-!ReportTest methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 02:31:11'!
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 16:07:47'!
 test13TreeStructureOfPortfolioWithPortfolio
 |portfolio portfolio2 account  account2 account3 treeStructure res|
 	
@@ -922,10 +922,10 @@ test13TreeStructureOfPortfolioWithPortfolio
 	portfolio add: portfolio2 .
 		
 	res :='Portfolio de juan', String newLineString .	
-	res:=res,'cuenta de juan', String newLineString .
-	res:=res,'cuenta de juan2', String newLineString .
-	res:=res,'Portfolio de pepa', String newLineString .
-	res:=res,'cuenta de pepa', String newLineString .
+	res:=res,'   ','cuenta de juan', String newLineString .
+	res:=res,'   ','cuenta de juan2', String newLineString .
+	res:=res,'   ', 'Portfolio de pepa', String newLineString .
+	res:=res,'      ','cuenta de pepa', String newLineString .
 		
 	self assert: (treeStructure value = res ).! !
 
@@ -1084,9 +1084,9 @@ add: accountToAdd
 	accountToAdd addedTo: self 
 	! !
 
-!Portfolio methodsFor: 'accounts management' stamp: 'JAV 10/28/2019 00:03:59'!
-doWithAccounts:aReport
-	self accounts do:[:a| a acknowledgeReportOfSelf:aReport].! !
+!Portfolio methodsFor: 'accounts management' stamp: 'JAV 10/28/2019 09:07:01'!
+doWithAccounts:aReport WithTabs:n
+	self accounts do:[:a| a acknowledgeReportOfSelf:aReport WithTabs:n].! !
 
 !Portfolio methodsFor: 'accounts management' stamp: 'HAW 5/25/2019 12:17:31'!
 rootParents
@@ -1121,9 +1121,9 @@ balance
 accounts
 	^accounts copy.! !
 
-!Portfolio methodsFor: 'transactions' stamp: 'JAV 10/28/2019 02:15:18'!
-acknowledgeReportOfSelf:aReport
-	aReport addPortfolioToReport: self.! !
+!Portfolio methodsFor: 'transactions' stamp: 'JAV 10/28/2019 16:06:42'!
+acknowledgeReportOfSelf:aReport WithTabs:n
+	aReport addPortfolioToReport: self WithTabs:n.! !
 
 !Portfolio methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:42:55'!
 addTransactionsTo: aCollectionOfTransactions
@@ -1267,9 +1267,9 @@ isComposedBy: anAccount
 	^self = anAccount ! !
 
 
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 00:24:42'!
-acknowledgeReportOfSelf:aReport
-	aReport addAccountToReport: self.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 09:09:11'!
+acknowledgeReportOfSelf:aReport WithTabs:n
+	aReport addAccountToReport: self WithTabs:n.! !
 
 !ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'JCCT 10/20/2019 11:34:53'!
 hasOneParentInCommon: aPortfolio
@@ -1676,24 +1676,28 @@ Report subclass: #TreeStructure
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!TreeStructure methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 01:34:05'!
-addAccountToReport:anAccount
-	
-	report:=report,(anAccount accountName),String newLineString  .
+!TreeStructure methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 15:56:10'!
+addAccountToReport:anAccount WithTabs:n
+	|tabs|
+	tabs:=''.
+	n timesRepeat: [ tabs:= tabs,'   '].
+	report:=report,tabs,(anAccount accountName),String newLineString  .
 	! !
 
-!TreeStructure methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 02:24:40'!
-addPortfolioToReport:aPortfolio
-	
-	report:=report,(aPortfolio accountName),String newLineString,'   '.
-	aPortfolio doWithAccounts: self.! !
+!TreeStructure methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 15:57:33'!
+addPortfolioToReport:aPortfolio WithTabs:n
+	|tabs|
+	tabs:=''.
+	n timesRepeat: [tabs:= tabs,'   '].
+	report:=report,tabs,(aPortfolio accountName),String newLineString.
+	aPortfolio doWithAccounts: self WithTabs:n+1.! !
 
-!TreeStructure methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 02:22:33'!
+!TreeStructure methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 02:46:06'!
 initializeFor: aPortfolio
 	portfolio:=aPortfolio.
 	report:= aPortfolio accountName, String newLineString.! !
 
-!TreeStructure methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 02:15:42'!
+!TreeStructure methodsFor: 'as yet unclassified' stamp: 'JAV 10/28/2019 09:07:12'!
 value	
-	portfolio doWithAccounts: self.
+	portfolio doWithAccounts: self WithTabs:1.
 	^report.! !
