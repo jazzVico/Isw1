@@ -1,0 +1,1265 @@
+
+
+----STARTUP---- (30 October 2019 17:17:05) as /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/CuisUniversity-3938.image!
+
+
+Object subclass: #MerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #MerchantProcessor category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:23:14'!
+Object subclass: #MerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+----End fileIn of /home/javier/Documents/Estudios/Facultad/Ing1/Isw1/22-TerniLapilli/TerniLapilli.st----!
+
+TestCase subclass: #TestMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #TestMerchantProcessor category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:26:15'!
+TestCase subclass: #TestMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+TestCase subclass: #TestXXX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #TestXXX category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:29:08'!
+TestCase subclass: #TestXXX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classRemoval: #TestMerchantProcessor stamp: 'JCCT 10/30/2019 17:29:12'!
+TestCase subclass: #TestMerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+Object subclass: #XXX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #XXX category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:29:17'!
+Object subclass: #XXX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classRemoval: #MerchantProcessor stamp: 'JCCT 10/30/2019 17:29:21'!
+Object subclass: #MerchantProcessor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+Object subclass: #Carrito
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #Carrito category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:34:47'!
+Object subclass: #Carrito
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classRemoval: #XXX stamp: 'JCCT 10/30/2019 17:34:50'!
+Object subclass: #XXX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+TestCase subclass: #TestCarrito
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #TestCarrito category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:34:55'!
+TestCase subclass: #TestCarrito
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classRemoval: #TestXXX stamp: 'JCCT 10/30/2019 17:34:59'!
+TestCase subclass: #TestXXX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+----End fileIn of /home/javier/Documents/Estudios/Facultad/Ing1/2019-2c/20-Stack/Stack-Solution-1.st----!
+
+!classRemoval: #OONotEmptyStackState stamp: 'JCCT 10/30/2019 17:39:39'!
+OOStackState subclass: #OONotEmptyStackState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Solution-1a'!
+
+!classRemoval: #OOEmptyStackState stamp: 'JCCT 10/30/2019 17:39:39'!
+OOStackState subclass: #OOEmptyStackState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Solution-1a'!
+
+!classRemoval: #OOStackState stamp: 'JCCT 10/30/2019 17:39:39'!
+Object subclass: #OOStackState
+	instanceVariableNames: 'stack'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Solution-1a'!
+
+!classRemoval: #OOStack stamp: 'JCCT 10/30/2019 17:39:40'!
+Object subclass: #OOStack
+	instanceVariableNames: 'contents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Solution-1a'!
+
+!classRemoval: #OOStackTest stamp: 'JCCT 10/30/2019 17:39:40'!
+TestCase subclass: #OOStackTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Solution-1a'!
+
+----End fileIn of /home/javier/Documents/Estudios/Facultad/Ing1/Isw1/21-MarsRover/MarsRover.st----!
+!TestCarrito methodsFor: 'nil' stamp: 'JCCT 10/30/2019 17:45:24'!
+test01AddSingleBookToCart
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	
+	self assert: (aCart hasBook: elNombreDelViento).! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 17:45:32'!
+ERROR!
+!Carrito class methodsFor: 'instance creation' stamp: 'JCCT 10/30/2019 17:45:41'!
+of: aString WithPassword: aString2 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeOf: aString WithPassword: aString2 ! !
+!Carrito class methodsFor: 'instance creation' stamp: 'JCCT 10/30/2019 17:46:14' prior: 50778911!
+of: aUser WithPassword: aUserPassword 
+	
+	^self new initializeOf: aUser WithPassword: aUserPassword ! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 17:46:18'!
+ERROR!
+
+!classDefinition: #Carrito category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:46:33'!
+Object subclass: #Carrito
+	instanceVariableNames: 'user'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #Carrito category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:46:33'!
+Object subclass: #Carrito
+	instanceVariableNames: 'user userPassword'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+!Carrito methodsFor: 'initialization' stamp: 'JCCT 10/30/2019 17:46:33'!
+initializeOf: aUser WithPassword: aUserPassword 
+	self shouldBeImplemented.
+	user := aUser.
+	userPassword := aUserPassword.! !
+!Carrito methodsFor: 'initialization' stamp: 'JCCT 10/30/2019 17:46:36' prior: 50778944!
+initializeOf: aUser WithPassword: aUserPassword 
+	user := aUser.
+	userPassword := aUserPassword.! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 17:46:39'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:46:49'!
+addBook: aString 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:46:58' prior: 50778960!
+addBook: aBook 
+	! !
+
+!classDefinition: #Carrito category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:47:09'!
+Object subclass: #Carrito
+	instanceVariableNames: 'user userPassword book'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:47:07' prior: 50778965!
+addBook: aBook 
+	book := aBook! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 17:47:12'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:47:19'!
+hasBook: aString 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:47:37' prior: 50778983!
+hasBook: aBook 
+	^book = aBook.! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 17:49:52'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 17:49:52'!
+PASSED!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:51:58'!
+test01AdTwodBooksToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elTemorDeUnHombreSabio.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart hasBook: elTemorDeUnHombreSabio).! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:52:13'!
+test02AddTwodBooksToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elTemorDeUnHombreSabio.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart hasBook: elTemorDeUnHombreSabio).! !
+
+!methodRemoval: TestCarrito #test01AdTwodBooksToCart stamp: 'JCCT 10/30/2019 17:52:13'!
+test01AdTwodBooksToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elTemorDeUnHombreSabio.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart hasBook: elTemorDeUnHombreSabio).!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 17:52:21'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 17:52:21'!
+FAILURE!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 17:52:21'!
+FAILURE!
+
+!classDefinition: #Carrito category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 17:53:19'!
+Object subclass: #Carrito
+	instanceVariableNames: 'user userPassword book books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:53:17' prior: 50778976!
+addBook: aBook 
+	books add: aBook! !
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 17:53:27'!
+ERROR!
+!Carrito methodsFor: 'initialization' stamp: 'JCCT 10/30/2019 17:53:54' prior: 50778951!
+initializeOf: aUser WithPassword: aUserPassword 
+	user := aUser.
+	userPassword := aUserPassword.
+	books := OrderedCollection new.! !
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 17:53:56'!
+FAILURE!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 17:54:17'!
+FAILURE!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:55:37' prior: 50778988!
+hasBook: aBook 
+	^books includes: aBook.! !
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 17:55:38'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 17:55:42'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 17:55:42'!
+PASSED!
+
+----STARTUP---- (30 October 2019 19:34:50) as /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/CuisUniversity-3938.image!
+
+
+----End fileIn of /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/Tus-Libros.st----!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 19:40:11'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 19:40:11'!
+PASSED!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 19:47:42' prior: 50779129!
+test02AddTwodBooksToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elTemorDeUnHombreSabio.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart hasBook: elTemorDeUnHombreSabio).! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 19:47:50'!
+test02AddTwoBooksToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elTemorDeUnHombreSabio.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart hasBook: elTemorDeUnHombreSabio).! !
+
+!methodRemoval: TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 19:47:50'!
+test02AddTwodBooksToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elTemorDeUnHombreSabio.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart hasBook: elTemorDeUnHombreSabio).!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 19:59:18'!
+test02AddSameBookTwiceToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart amountOfBook: elNombreDelViento = 2).! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:00:19' prior: 50779251!
+test02AddSameBookTwiceToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento = 2).! !
+
+!testRun: #TestCarrito #test02AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:00:31'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:00:44'!
+bookCount: aFalse 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:01:45' prior: 50779290!
+bookCount: aBook 
+	self shouldBeImplemented.! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:02:08' prior: 50779269!
+test02AddSameBookTwiceToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) equals: 2.! !
+
+!testRun: #TestCarrito #test02AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:02:18'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:02:35' prior: 50779295!
+bookCount: aBook 
+	^2.! !
+
+!testRun: #TestCarrito #test02AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:02:40'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 20:02:40'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:02:40'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwoBooksToCart stamp: 'JCCT 10/30/2019 20:02:40'!
+PASSED!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:02:50'!
+test03AddSameBookTwiceToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) equals: 2.! !
+
+!methodRemoval: TestCarrito #test02AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:02:50'!
+test02AddSameBookTwiceToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) equals: 2.!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:02:54'!
+test04AddSameBookTwiceToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) equals: 2.! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:03:36'!
+test05AddSameBookThriceToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) equals: 2.! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:04:19' prior: 50779391!
+test05AddSameBookThriceToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	aCart addBook: elNombreDelViento.
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) equals: 3.! !
+
+!testRun: #TestCarrito #test05AddSameBookThriceToCart stamp: 'JCCT 10/30/2019 20:04:23'!
+FAILURE!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:12:21' prior: 50779170!
+hasBook: aBook 
+	^books at: aBook ifPresent: [books ] ifAbsent: [].! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:15:31' prior: 50779166!
+addBook: aBook 
+	books at: aBook ifPresent:[books at:aBook put: 1] ifAbsent: [books at:aBook put: 1].! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 20:15:36'!
+ERROR!
+
+!testRun: #TestCarrito #test02AddTwoBooksToCart stamp: 'JCCT 10/30/2019 20:15:36'!
+ERROR!
+
+!testRun: #TestCarrito #test03AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:15:36'!
+ERROR!
+
+!testRun: #TestCarrito #test04AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:15:36'!
+ERROR!
+
+!testRun: #TestCarrito #test05AddSameBookThriceToCart stamp: 'JCCT 10/30/2019 20:15:36'!
+ERROR!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 20:15:43'!
+ERROR!
+!Carrito methodsFor: 'initialization' stamp: 'JCCT 10/30/2019 20:16:45' prior: 50779159!
+initializeOf: aUser WithPassword: aUserPassword 
+	user := aUser.
+	userPassword := aUserPassword.
+	books := Dictionary new.! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 20:16:48'!
+ERROR!
+
+!testRun: #TestCarrito #test02AddTwoBooksToCart stamp: 'JCCT 10/30/2019 20:16:48'!
+ERROR!
+
+!testRun: #TestCarrito #test03AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:16:48'!
+ERROR!
+
+!testRun: #TestCarrito #test04AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:16:48'!
+ERROR!
+
+!testRun: #TestCarrito #test05AddSameBookThriceToCart stamp: 'JCCT 10/30/2019 20:16:48'!
+ERROR!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 20:16:50'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:17:58' prior: 50779433!
+hasBook: aBook 
+	^books includes: aBook.! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 20:18:00'!
+FAILURE!
+
+!testRun: #TestCarrito #test02AddTwoBooksToCart stamp: 'JCCT 10/30/2019 20:18:00'!
+FAILURE!
+
+!testRun: #TestCarrito #test03AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:18:00'!
+ERROR!
+
+!testRun: #TestCarrito #test04AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:18:00'!
+ERROR!
+
+!testRun: #TestCarrito #test05AddSameBookThriceToCart stamp: 'JCCT 10/30/2019 20:18:00'!
+ERROR!
+
+!testRun: #TestCarrito #test03AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 20:18:17'!
+ERROR!
+
+assoc !
+
+assoc at: 0!
+
+assoc!
+
+self value.!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:00:17' prior: 50779439!
+addBook: aBook 
+	books at: aBook ifPresent:[:value | value + 1] ifAbsent: [books at:aBook put: 1].! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:00:25'!
+FAILURE!
+
+!testRun: #TestCarrito #test02AddTwoBooksToCart stamp: 'JCCT 10/30/2019 23:00:25'!
+FAILURE!
+
+!testRun: #TestCarrito #test03AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:00:25'!
+FAILURE!
+
+!testRun: #TestCarrito #test04AddSameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:00:25'!
+FAILURE!
+
+!testRun: #TestCarrito #test05AddSameBookThriceToCart stamp: 'JCCT 10/30/2019 23:00:25'!
+FAILURE!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:00:30'!
+FAILURE!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:02:53'!
+FAILURE!
+
+----STARTUP---- (30 October 2019 23:04:58) as /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/CuisUniversity-3938.image!
+
+
+!classDefinition: #Carrito category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 23:05:16'!
+Object subclass: #Carrito
+	instanceVariableNames: 'user userPassword book books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+!classDefinition: #Carrito category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 23:05:16'!
+Object subclass: #Carrito
+	instanceVariableNames: 'user userPassword book books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+!Carrito methodsFor: 'initialization' stamp: 'JCCT 10/30/2019 17:53:54'!
+initializeOf: aUser WithPassword: aUserPassword 
+	user := aUser.
+	userPassword := aUserPassword.
+	books := OrderedCollection new.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:53:17'!
+addBook: aBook 
+	books add: aBook! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 17:55:37'!
+hasBook: aBook 
+	^books includes: aBook.! !
+
+!classDefinition: 'Carrito class' category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 23:05:16'!
+Carrito class
+	instanceVariableNames: ''!
+
+!classDefinition: 'Carrito class' category: #'Tus-Libros' stamp: 'JCCT 10/30/2019 23:05:16'!
+Carrito class
+	instanceVariableNames: ''!
+!Carrito class methodsFor: 'instance creation' stamp: 'JCCT 10/30/2019 17:46:14'!
+of: aUser WithPassword: aUserPassword 
+	
+	^self new initializeOf: aUser WithPassword: aUserPassword ! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:00:44'!
+bookCount: aFalse 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:01:45' prior: 50779588!
+bookCount: aBook 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:02:35' prior: 50779593!
+bookCount: aBook 
+	^2.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:12:21' prior: 50779569!
+hasBook: aBook 
+	^books at: aBook ifPresent: [books ] ifAbsent: [].! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:15:31' prior: 50779565!
+addBook: aBook 
+	books at: aBook ifPresent:[books at:aBook put: 1] ifAbsent: [books at:aBook put: 1].! !
+!Carrito methodsFor: 'initialization' stamp: 'JCCT 10/30/2019 20:16:45' prior: 50779558!
+initializeOf: aUser WithPassword: aUserPassword 
+	user := aUser.
+	userPassword := aUserPassword.
+	books := Dictionary new.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 20:17:58' prior: 50779602!
+hasBook: aBook 
+	^books includes: aBook.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:00:17' prior: 50779608!
+addBook: aBook 
+	books at: aBook ifPresent:[:value | value + 1] ifAbsent: [books at:aBook put: 1].! !
+
+!classRemoval: #Carrito stamp: 'JCCT 10/30/2019 23:06:52'!
+Object subclass: #Carrito
+	instanceVariableNames: 'user userPassword book books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Tus-Libros'!
+
+----End fileIn of /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/Tus-Libros.st----!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:08:57'!
+test03SameBookTwiceToCart
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) = 2.! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:09:09'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 23:09:09'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:09:09'!
+ERROR!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:09:09'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:09:20'!
+bookCount: aString 
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:09:31' prior: 50779753!
+bookCount: aBook 
+	^2.! !
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:09:35'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:09:38'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 23:09:38'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:09:38'!
+PASSED!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:10:01' prior: 50779651!
+test01AddSingleBookToCart
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) = 1.! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:10:21' prior: 50779664!
+test02AddTwodBooksToCart
+	|aCart user passwordOfUser elNombreDelViento elTemorDeUnHombreSabio|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	elTemorDeUnHombreSabio := '978-950-644-294-1'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elTemorDeUnHombreSabio.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) = 1.
+	self assert: (aCart hasBook: elTemorDeUnHombreSabio).
+	self assert: (aCart bookCount: elTemorDeUnHombreSabio) = 1.
+		! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:10:24'!
+FAILURE!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 23:10:24'!
+FAILURE!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:10:24'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:10:25'!
+FAILURE!
+!Carrito methodsFor: 'initialization' stamp: 'JCCT 10/30/2019 23:11:02' prior: 50779694!
+initializeOf: aUser WithPassword: aUserPassword 
+	user := aUser.
+	userPassword := aUserPassword.
+	books := Dictionary new.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:12:45' prior: 50779701!
+addBook: aBook 
+	books at: aBook ifPresent: [: value | value + 1] ifAbsent:[books at: aBook put: 1].! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:13:03'!
+FAILURE!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:14:24' prior: 50779705!
+hasBook: aBook 
+	^books includesKey: aBook.! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:14:27'!
+FAILURE!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:16:37' prior: 50779758!
+bookCount: aBook 
+	^ books at: aBook ifPresent:[:aQuantityOfBook | ^aQuantityOfBook] ifAbsent:[^0].! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:16:39'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:16:47'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 23:16:47'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:16:47'!
+FAILURE!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:16:47'!
+FAILURE!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/30/2019 23:18:47' prior: 50779830!
+addBook: aBook 
+	books at: aBook ifPresent: [: value | books at: aBook put: value + 1] ifAbsent:[books at: aBook put: 1].! !
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:18:52'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/30/2019 23:18:55'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/30/2019 23:18:55'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/30/2019 23:18:55'!
+PASSED!
+
+----STARTUP---- (31 October 2019 12:27:37) as /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/CuisUniversity-3938.image!
+
+
+----End fileIn of /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/Tus-Libros.st----!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 12:32:09'!
+test04ListCartWithNoBooks
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCart addBook: elNombreDelViento.	
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) = 2.! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 12:34:05' prior: 50780007!
+test04ListCartWithNoBooks
+	|aCart user passwordOfUser aCartInfo|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCartInfo := aCart listBooks.
+	self assert: (aCartInfo isEmpty).
+! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/31/2019 12:34:13'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/31/2019 12:34:13'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/31/2019 12:34:13'!
+PASSED!
+
+!testRun: #TestCarrito #test04ListCartWithNoBooks stamp: 'JCCT 10/31/2019 12:34:13'!
+ERROR!
+
+!testRun: #TestCarrito #test04ListCartWithNoBooks stamp: 'JCCT 10/31/2019 12:34:13'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 12:34:59'!
+listBooks
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 12:35:20' prior: 50780048!
+listBooks
+	^OrderedCollection new.! !
+
+!testRun: #TestCarrito #test04ListCartWithNoBooks stamp: 'JCCT 10/31/2019 12:35:24'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/31/2019 12:35:27'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/31/2019 12:35:27'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/31/2019 12:35:27'!
+PASSED!
+
+!testRun: #TestCarrito #test04ListCartWithNoBooks stamp: 'JCCT 10/31/2019 12:35:27'!
+PASSED!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 12:35:52'!
+test05ListCartWithOneBook
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) = 1.! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 12:37:06' prior: 50780072!
+test05ListCartWithOneBook
+	|aCart user passwordOfUser elNombreDelViento aCartInfo|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCartInfo := aCart listBooks.
+	self assert: (aCartInfo includes: (elNombreDelViento @ 1)).
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) = 1.! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/31/2019 12:37:08'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/31/2019 12:37:08'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/31/2019 12:37:08'!
+PASSED!
+
+!testRun: #TestCarrito #test04ListCartWithNoBooks stamp: 'JCCT 10/31/2019 12:37:08'!
+PASSED!
+
+!testRun: #TestCarrito #test05ListCartWithOneBook stamp: 'JCCT 10/31/2019 12:37:08'!
+ERROR!
+
+!testRun: #TestCarrito #test05ListCartWithOneBook stamp: 'JCCT 10/31/2019 12:37:08'!
+ERROR!
+
+aBag := Bag new.!
+
+aBag add:'hola'.!
+
+aBag at:'hola'.!
+
+aBag.!
+
+aBag add:'hola'.!
+
+aBag occurrencesOf: 'hola'.!
+
+aBag.!
+
+aBag.!
+
+aBag occurrencesOf: 'chau'!
+
+aBag do: [:elem | elem].!
+
+aDic := Dictionary new.!
+
+aBag do: [:elem | aDic at: elem put: (aBag occurrencesOf: elem )].!
+
+aDic.!
+
+aDic at: 'hola'.!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 14:08:08' prior: 50780087!
+test05ListCartWithOneBook
+	|aCart user passwordOfUser elNombreDelViento aCartInfo aDic|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCartInfo := aCart listBooks.
+	aDic := Dictionary new.
+	aDic at: elNombreDelViento put: 1.
+	self assert: (aCartInfo = aDic).
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) = 1.! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/31/2019 14:08:21'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/31/2019 14:08:21'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/31/2019 14:08:21'!
+PASSED!
+
+!testRun: #TestCarrito #test04ListCartWithNoBooks stamp: 'JCCT 10/31/2019 14:08:21'!
+PASSED!
+
+!testRun: #TestCarrito #test05ListCartWithOneBook stamp: 'JCCT 10/31/2019 14:08:21'!
+FAILURE!
+
+!testRun: #TestCarrito #test05ListCartWithOneBook stamp: 'JCCT 10/31/2019 14:08:21'!
+FAILURE!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 14:09:17' prior: 50780053!
+listBooks
+	^ books.! !
+
+!testRun: #TestCarrito #test05ListCartWithOneBook stamp: 'JCCT 10/31/2019 14:09:23'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/31/2019 14:09:26'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/31/2019 14:09:26'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/31/2019 14:09:26'!
+PASSED!
+
+!testRun: #TestCarrito #test04ListCartWithNoBooks stamp: 'JCCT 10/31/2019 14:09:26'!
+PASSED!
+
+!testRun: #TestCarrito #test05ListCartWithOneBook stamp: 'JCCT 10/31/2019 14:09:26'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCT 10/31/2019 14:09:59'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCT 10/31/2019 14:09:59'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCT 10/31/2019 14:09:59'!
+PASSED!
+
+!testRun: #TestCarrito #test04ListCartWithNoBooks stamp: 'JCCT 10/31/2019 14:09:59'!
+PASSED!
+
+!testRun: #TestCarrito #test05ListCartWithOneBook stamp: 'JCCT 10/31/2019 14:09:59'!
+PASSED!
+
+----End fileIn of /home/javier/Documents/Estudios/Facultad/Ing1/2019-2c/20-Stack/Stack-Solution-1.st----!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 14:13:13'!
+test06CartDoesNotHaveBookNotAdded
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	self should: [aCart hasBook: elNombreDelViento]
+		 raise:  Error - MessageNotUnderstood 
+		description: [].
+	self assert: aCart books isEmpty. ! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 14:13:33'!
+books
+	^ books.! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 14:13:33' prior: 50780132!
+test05ListCartWithOneBook
+	|aCart user passwordOfUser elNombreDelViento aCartInfo aDic|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aCartInfo := aCart books.
+	aDic := Dictionary new.
+	aDic at: elNombreDelViento put: 1.
+	self assert: (aCartInfo = aDic).
+	self assert: (aCart hasBook: elNombreDelViento).
+	self assert: (aCart bookCount: elNombreDelViento) = 1.! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 14:13:33' prior: 50780023!
+test04ListCartWithNoBooks
+	|aCart user passwordOfUser aCartInfo|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCartInfo := aCart books.
+	self assert: (aCartInfo isEmpty).
+! !
+
+!methodRemoval: Carrito #listBooks stamp: 'JCCT 10/31/2019 14:13:33'!
+listBooks
+	^ books.!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 14:13:50' prior: 50780485!
+test06CartDoesNotHaveBookNotAdded
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	self should: [aCart hasBook: elNombreDelViento]
+		 raise:  Error - MessageNotUnderstood 
+		description: [].
+	self assert: aCart isEmpty. ! !
+
+!testRun: #TestCarrito #test06CartDoesNotHaveBookNotAdded stamp: 'JCCT 10/31/2019 14:13:53'!
+FAILURE!
+
+!testRun: #TestCarrito #test06CartDoesNotHaveBookNotAdded stamp: 'JCCT 10/31/2019 14:13:53'!
+ERROR!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCT 10/31/2019 14:15:15' prior: 50780537!
+test06CartDoesNotHaveBookNotAdded
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+
+	self should: [ aCart hasBook: elNombreDelViento ]
+	raise: Error - MessageNotUnderstood 
+	withExceptionDo: [ :anError |
+		self assert: anError messageText = Carrito bookNotInCartErrorDescription ].
+	self assert: aCart isEmpty. ! !
+
+!testRun: #TestCarrito #test06CartDoesNotHaveBookNotAdded stamp: 'JCCT 10/31/2019 14:15:20'!
+FAILURE!
+
+!testRun: #TestCarrito #test06CartDoesNotHaveBookNotAdded stamp: 'JCCT 10/31/2019 14:15:44'!
+FAILURE!
+
+----STARTUP---- (31 October 2019 14:26:54) as /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/CuisUniversity-3938.image!
+
+
+----End fileIn of /home/javier/Documents/Estudios/Facultad/Ing1/linux64/linux64/Tus-Libros.st----!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:29:11'!
+test04BooksOfEmptyCartIsEmpty
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	
+	self assert: (aCart hasNoBooks)! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCCT 10/31/2019 14:29:17'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCCT 10/31/2019 14:29:17'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCCT 10/31/2019 14:29:17'!
+PASSED!
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:29:17'!
+ERROR!
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:29:17'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:29:21'!
+hasNoBooks
+	self shouldBeImplemented.! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:29:48' prior: 50780727!
+hasNoBooks
+	self true. ! !
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:29:50'!
+ERROR!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:30:02' prior: 50780732!
+hasNoBooks
+	^ true. ! !
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:30:06'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCCT 10/31/2019 14:30:08'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCCT 10/31/2019 14:30:08'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCCT 10/31/2019 14:30:08'!
+PASSED!
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:30:08'!
+PASSED!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:30:48'!
+test05BooksOfWithOneBookCartAreTheOneAdded
+	|aCart user passwordOfUser elNombreDelViento|
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	
+	self assert: (aCart hasNoBooks)! !
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:32:33' prior: 50780758!
+test05BooksOfWithOneBookCartAreTheOneAdded
+	|aCart user passwordOfUser elNombreDelViento aDic| 
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart add: elNombreDelViento.
+	aDic := Dictionary new.
+	aDic at:elNombreDelViento put: 1.
+	self deny: (aCart hasNoBooks).
+	self assert: (aCart books = aDic ).! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCCT 10/31/2019 14:32:38'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCCT 10/31/2019 14:32:38'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCCT 10/31/2019 14:32:38'!
+PASSED!
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:32:38'!
+PASSED!
+
+!testRun: #TestCarrito #test05BooksOfWithOneBookCartAreTheOneAdded stamp: 'JCCCT 10/31/2019 14:32:38'!
+ERROR!
+
+!testRun: #TestCarrito #test05BooksOfWithOneBookCartAreTheOneAdded stamp: 'JCCCT 10/31/2019 14:32:38'!
+ERROR!
+!TestCarrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:32:54' prior: 50780770!
+test05BooksOfWithOneBookCartAreTheOneAdded
+	|aCart user passwordOfUser elNombreDelViento aDic| 
+	user := 'juan'.
+	passwordOfUser := '123'.
+	elNombreDelViento := '978-950-644-174-6'.
+	aCart := Carrito of: user WithPassword: passwordOfUser.
+	aCart addBook: elNombreDelViento.
+	aDic := Dictionary new.
+	aDic at:elNombreDelViento put: 1.
+	self deny: (aCart hasNoBooks).
+	self assert: (aCart books = aDic ).! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCCT 10/31/2019 14:32:56'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCCT 10/31/2019 14:32:56'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCCT 10/31/2019 14:32:56'!
+PASSED!
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:32:56'!
+PASSED!
+
+!testRun: #TestCarrito #test05BooksOfWithOneBookCartAreTheOneAdded stamp: 'JCCCT 10/31/2019 14:32:56'!
+FAILURE!
+
+!testRun: #TestCarrito #test05BooksOfWithOneBookCartAreTheOneAdded stamp: 'JCCCT 10/31/2019 14:32:56'!
+FAILURE!
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:33:30' prior: 50780739!
+hasNoBooks
+	^ books isEmpty . ! !
+!Carrito methodsFor: 'as yet unclassified' stamp: 'JCCCT 10/31/2019 14:33:31' prior: 50780840!
+hasNoBooks
+	^ books isEmpty. ! !
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCCT 10/31/2019 14:33:34'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCCT 10/31/2019 14:33:34'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCCT 10/31/2019 14:33:34'!
+PASSED!
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:33:34'!
+PASSED!
+
+!testRun: #TestCarrito #test05BooksOfWithOneBookCartAreTheOneAdded stamp: 'JCCCT 10/31/2019 14:33:34'!
+ERROR!
+
+!testRun: #TestCarrito #test05BooksOfWithOneBookCartAreTheOneAdded stamp: 'JCCCT 10/31/2019 14:33:34'!
+ERROR!
+!Carrito methodsFor: 'accessing' stamp: 'JCCCT 10/31/2019 14:33:41'!
+books
+	self shouldBeImplemented.
+	^books! !
+!Carrito methodsFor: 'accessing' stamp: 'JCCCT 10/31/2019 14:33:44' prior: 50780868!
+books
+	^books! !
+
+!testRun: #TestCarrito #test05BooksOfWithOneBookCartAreTheOneAdded stamp: 'JCCCT 10/31/2019 14:33:48'!
+PASSED!
+
+!testRun: #TestCarrito #test01AddSingleBookToCart stamp: 'JCCCT 10/31/2019 14:33:50'!
+PASSED!
+
+!testRun: #TestCarrito #test02AddTwodBooksToCart stamp: 'JCCCT 10/31/2019 14:33:50'!
+PASSED!
+
+!testRun: #TestCarrito #test03SameBookTwiceToCart stamp: 'JCCCT 10/31/2019 14:33:50'!
+PASSED!
+
+!testRun: #TestCarrito #test04BooksOfEmptyCartIsEmpty stamp: 'JCCCT 10/31/2019 14:33:50'!
+PASSED!
+
+!testRun: #TestCarrito #test05BooksOfWithOneBookCartAreTheOneAdded stamp: 'JCCCT 10/31/2019 14:33:50'!
+PASSED!
+
+----QUIT----(31 October 2019 14:34:12) CuisUniversity-3938.image priorSource: 14319118!
