@@ -1,4 +1,4 @@
-!classDefinition: #CartTest category: #TusLibros stamp: 'JAV 11/5/2019 19:12:50'!
+!classDefinition: #CartTest category: #TusLibros stamp: 'JAV 11/6/2019 22:58:07'!
 TestCase subclass: #CartTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -113,7 +113,7 @@ itemSellByTheStore
 	^ 'validBook'! !
 
 
-!classDefinition: #CashierTest category: #TusLibros stamp: 'JAV 11/5/2019 19:12:50'!
+!classDefinition: #CashierTest category: #TusLibros stamp: 'JAV 11/6/2019 22:58:07'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: 'aClosure'
 	classVariableNames: ''
@@ -175,8 +175,45 @@ test03CashierCheckoutsCartWithOneBookAndMerchantProcessor
 	
 	! !
 
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JAV 11/6/2019 22:56:45'!
+test04CashierDoesNotRegisterSaleWhenMerchantProcessorFails
+	|aCashier aCart  aBook aDict aCard aSalesBook aFlag|
+	
+	aCard:= CreditCard withNumber:123456 expirationDate: (GregorianMonthOfYear year: 	(FixedGregorianDate today year next ) month: November ) name:'Juana Perez'.
+	aBook:='book'.
+	aDict := Dictionary new .
+	aDict add: aBook -> 10.
+	
+	aSalesBook:= OrderedCollection new.
+	aCashier:=Cashier initializeWith:aSalesBook.	
+	aCart:=Cart acceptingItemsOf: aDict.	
+	aCart add: aBook.
+			
+	aFlag:=false.
+	aClosure:=[aFlag:=true. self error:Error].
+	
+	self 
+		should: [aCashier checkout: aCart withCreditCard: aCard withMerchantProcessor:self. ]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: aFlag=true.
+			self assert: aSalesBook isEmpty ].
+	
+
+	
+
+	
+	! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JAV 11/6/2019 22:09:32'!
+test05CashierFailsWhenCreditCardIsExpiredAndDoesNotExecuteMerchantProcessor
+	
+
+	
+	! !
+
 
-!classDefinition: #Cart category: #TusLibros stamp: 'JAV 11/5/2019 19:12:50'!
+!classDefinition: #Cart category: #TusLibros stamp: 'JAV 11/6/2019 22:58:07'!
 Object subclass: #Cart
 	instanceVariableNames: 'catalog items'
 	classVariableNames: ''
@@ -251,7 +288,7 @@ add: aQuantity of: anItem
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cart class' category: #TusLibros stamp: 'JAV 11/5/2019 19:12:50'!
+!classDefinition: 'Cart class' category: #TusLibros stamp: 'JAV 11/6/2019 22:58:07'!
 Cart class
 	instanceVariableNames: ''!
 
@@ -261,7 +298,7 @@ acceptingItemsOf: aCatalog
 	^self new initializeAcceptingItemsOf: aCatalog ! !
 
 
-!classDefinition: #Cashier category: #TusLibros stamp: 'JAV 11/5/2019 19:12:50'!
+!classDefinition: #Cashier category: #TusLibros stamp: 'JAV 11/6/2019 22:58:07'!
 Object subclass: #Cashier
 	instanceVariableNames: 'salesBook'
 	classVariableNames: ''
@@ -276,7 +313,7 @@ checkout: aCart withCreditCard: aCard
 	
 	! !
 
-!Cashier methodsFor: 'as yet unclassified' stamp: 'JAV 11/4/2019 21:51:44'!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'JAV 11/6/2019 22:48:20'!
 checkout: aCart withCreditCard: aCard withMerchantProcessor:amerchantProcessor
 	
 	aCart isEmpty ifTrue:[ self error: self class EmptyCartErrorMessage].
@@ -295,7 +332,7 @@ initializeWith:aSalesBook
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cashier class' category: #TusLibros stamp: 'JAV 11/5/2019 19:12:50'!
+!classDefinition: 'Cashier class' category: #TusLibros stamp: 'JAV 11/6/2019 22:58:07'!
 Cashier class
 	instanceVariableNames: ''!
 
@@ -309,7 +346,7 @@ initializeWith: aSalesBook
 	^self new initializeWith:aSalesBook. ! !
 
 
-!classDefinition: #CreditCard category: #TusLibros stamp: 'JAV 11/5/2019 19:12:50'!
+!classDefinition: #CreditCard category: #TusLibros stamp: 'JAV 11/6/2019 22:58:07'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'name number expDate'
 	classVariableNames: ''
@@ -328,7 +365,7 @@ isEpiredOnDate: aDate
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'CreditCard class' category: #TusLibros stamp: 'JAV 11/5/2019 19:12:50'!
+!classDefinition: 'CreditCard class' category: #TusLibros stamp: 'JAV 11/6/2019 22:58:07'!
 CreditCard class
 	instanceVariableNames: ''!
 
