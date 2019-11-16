@@ -1,4 +1,4 @@
-!classDefinition: #CartTest category: #TusLibros!
+!classDefinition: #CartTest category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 TestCase subclass: #CartTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -113,7 +113,7 @@ itemSellByTheStore
 	^ 'validBook'! !
 
 
-!classDefinition: #CashierTest category: #TusLibros!
+!classDefinition: #CashierTest category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: 'aClosure'
 	classVariableNames: ''
@@ -156,9 +156,9 @@ test02CashierCheckoutsCartWithOneBook
 	
 	! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'JAV 11/4/2019 21:53:55'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 11:31:23'!
 test03CashierCheckoutsCartWithOneBookAndMerchantProcessor
-	|aCashier aCart  aBook aDict aCard aSalesBook aFlag|
+	|aCashier aCart  aBook aDict aCard aSalesBook aFlag aSale|
 	aCard:= CreditCard withNumber:123456 expirationDate: (GregorianMonthOfYear year: (FixedGregorianDate today year next ) month: November ) name:'Juana Perez'.
 	aBook:='book'.
 	aDict := Dictionary new .
@@ -168,10 +168,11 @@ test03CashierCheckoutsCartWithOneBookAndMerchantProcessor
 	aCart:=Cart acceptingItemsOf: aDict.	
 	aCart add: aBook.		
 	aFlag:=false.
+	aSale := Sale of:10 withItems: aCart items.
 	aClosure:=[aFlag:=true].
 	aCashier checkout: aCart withCreditCard: aCard withMerchantProcessor:self.
 	self assert:[aFlag=true].	
-	self assert:[aSalesBook includes: 10].
+	self assert:[aSalesBook includes: aSale].
 	
 	! !
 
@@ -213,129 +214,98 @@ test05CashierFailsWhenCreditCardIsExpiredAndDoesNotExecuteMerchantProcessor
 	! !
 
 
-!classDefinition: #XXXTest category: #TusLibros!
+!classDefinition: #XXXTest category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 TestCase subclass: #XXXTest
 	instanceVariableNames: 'aClosure'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 21:34:07'!
-dtest05CheckOutSucceds
-	|xxx  aCatalog aUsersWithPasswords cartId card transactionId aListOfPurchases abook|
-	aUsersWithPasswords := Dictionary new.
-	aUsersWithPasswords add: 'juan' -> 'Nahuel'.
-	aCatalog _ Dictionary new.
-	abook _ 'abook'.
-	xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: FakeDate.
-	cartId _ xxx createCartOfUser: 'juan' WithPassword: 'Nahuel'.
-	xxx addToCart: cartId item:  abook quantity: 2.
-	card _ CreditCard withNumber:123456 expirationDate: (GregorianMonthOfYear year: (FixedGregorianDate today year next ) month: November ) name:'Juana Perez'.
-	
-	transactionId _ xxx checkOutCart: cartId withCreditCard:card.
-	aListOfPurchases _ xxx listPurchasesOf: 'juan' WithPassword: 'Nahuel'.
-	
-
-! !
-
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'jj 11/14/2019 19:20:13'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 19:51:48'!
 test01CreateAnEmptyCartAndListItemsAskingById
-	|anInternalMerchantProcessor cartId itemsOfCart aUsersWithPasswords|
-	aUsersWithPasswords := Dictionary new.
-	aUsersWithPasswords add: 'juan' -> 'Nahuel'.
-	anInternalMerchantProcessor _ XXX initializeInternalMerchantProcessorWithCatalog:Dictionary new AndUsersWithPasswords: aUsersWithPasswords withClock:( FakeDate new).
+	|anInternalMerchantProcessor cartId itemsOfCart storeFactory|
+	storeFactory := StoreTestObjectsFactory new.
+	anInternalMerchantProcessor _ storeFactory defaultXXX.
 	cartId _ anInternalMerchantProcessor createCartOfUser: 'juan' WithPassword: 'Nahuel' .
 	itemsOfCart  _ anInternalMerchantProcessor listItemsOfCart:cartId.
 	self assert: itemsOfCart isEmpty. 
 	
 	! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 21:57:44'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 11:41:32'!
 test02CreateACartAndListItemsAskingById
-	|xxx cartId itemsOfCart anItem aCatalog aUsersWithPasswords|
-	aUsersWithPasswords := Dictionary new.
-	aUsersWithPasswords add: 'juan' -> 'Nahuel'.
-	anItem _ 'a book'.
-	aCatalog _ Dictionary new.
-	aCatalog add: anItem->10.
-	xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords:aUsersWithPasswords withClock:DateAndTime.
-	cartId _ xxx createCartOfUser: 'juan' WithPassword: 'Nahuel'.
+	|xxx cartId itemsOfCart storeFactory|
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
 	
-	xxx addToCart:cartId item:anItem quantity:3.
+	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	
+	xxx addToCart:cartId item: storeFactory itemSellByTheStore quantity:3.
 	itemsOfCart  _ xxx listItemsOfCart:cartId.
 	
-	self assert: itemsOfCart size =3. ! !
+	self assert: itemsOfCart size =3.
+	self assert: itemsOfCart includes: storeFactory itemSellByTheStore. ! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 21:34:44'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:02:22'!
 test03CantCreateACartWithInvalidUser
-	|xxx   aCatalog aUsersWithPasswords|
-	aUsersWithPasswords := Dictionary new.
-	aUsersWithPasswords add: 'juan' -> 'Nahuel'.
-	aCatalog _ Dictionary new.
+	|xxx   storeFactory|
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
 	
-	xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: FakeDate.
-	
-	self should:[ xxx createCartOfUser:'juanito' WithPassword:'Nahuel'.]
+	self should:[ xxx createCartOfUser: storeFactory invalidUser WithPassword: storeFactory invalidPassword.]
 	raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = XXX InvalidUserMessage].
 
 	! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 21:34:52'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:03:20'!
 test04CantCreateACartWithInvalidPassword
-	|xxx   aCatalog aUsersWithPasswords|
-	aUsersWithPasswords := Dictionary new.
-	aUsersWithPasswords add: 'juan' -> 'Nahuel'.
-	aCatalog _ Dictionary new.
+	|xxx   storeFactory|
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
 	
-	xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: FakeDate.
-	
-	self should:[ xxx createCartOfUser:'juan' WithPassword:'Nahuelito'.]
+	self should:[ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory invalidPassword.]
 	raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
 			self assert: anError messageText = XXX InvalidUserMessage].
-
 	! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'jj 11/14/2019 19:19:22'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:05:14'!
 testx1CantAddToCartAfter30Min
- |xxx  aCatalog aUsersWithPasswords cartId abook aClock|
- aUsersWithPasswords := Dictionary new.
- aUsersWithPasswords add: 'juan' -> 'Nahuel'.
- aCatalog _ Dictionary new.
- abook _ 'abook'.
- aCatalog add: abook->10.
- aClock := FakeDate new.
- xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: aClock.
- cartId _ xxx createCartOfUser: 'juan' WithPassword: 'Nahuel'.
- aClock incrementMinutes: 30.
- self should:[xxx addToCart: cartId item: abook quantity: 2]
-  raise: Error - MessageNotUnderstood
-  withExceptionDo: [ :anError |
-   self assert: anError messageText = XXX TimeElapsed].
+ |xxx  cartId aClock storeFactory|
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
+	
+	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	aClock := storeFactory clock.	
+
+	 aClock incrementMinutes: 30.
+	self should:[xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2]
+  		 raise: Error - MessageNotUnderstood
+  		withExceptionDo: [ :anError |
+   							self assert: anError messageText = XXX TimeElapsed].
 
 	
 
 ! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'jav 11/14/2019 20:28:31'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:11:02'!
 testx2CantCheckoutCartAfter30Min
- |xxx  aCatalog aUsersWithPasswords cartId abook aClock |
+ |xxx  cartId aCreditCard aClock storeFactory |
 
- aUsersWithPasswords := Dictionary new.
- aUsersWithPasswords add: 'juan' -> 'Nahuel'.
- aCatalog _ Dictionary new.
- abook _ 'abook'.
- aCatalog add: abook->10.
- aClock := FakeDate new.
- xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: aClock.
- cartId _ xxx createCartOfUser: 'juan' WithPassword: 'Nahuel'.
- aClock incrementMinutes: 10.
-xxx addToCart: cartId item: abook quantity: 2.
-aClock incrementMinutes: 30.
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
+	
+	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	aClock := storeFactory clock.	
 
- self should:[xxx checkoutWithCartId: cartId withCardNumber:99999 expirationDate: (GregorianMonthOfYear year: (FixedGregorianDate today year next ) month: November ) name:'Juana Perez'.]
+	 aClock incrementMinutes: 10.
+	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	aClock incrementMinutes: 30.
+	aCreditCard := storeFactory validCreditCard.
+	
+ 	self should:[xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.]
   raise: Error - MessageNotUnderstood
   withExceptionDo: [ :anError |
    self assert: anError messageText = XXX TimeElapsed].
@@ -344,47 +314,52 @@ aClock incrementMinutes: 30.
 
 ! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'jav 11/14/2019 20:54:59'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 15:56:30'!
 testx3CheckoutSucceds
- |xxx  aCatalog aUsersWithPasswords cartId abook aClock |
+	|xxx  cartId aCreditCard aClock storeFactory aSale books|
 
- aUsersWithPasswords := Dictionary new.
- aUsersWithPasswords add: 'juan' -> 'Nahuel'.
- aCatalog _ Dictionary new.
- abook _ 'abook'.
- aCatalog add: abook->10.
- aClock := FakeDate new.
- xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: aClock.
- cartId _ xxx createCartOfUser: 'juan' WithPassword: 'Nahuel'.
- aClock incrementMinutes: 10.
-xxx addToCart: cartId item: abook quantity: 2.
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
+	
+	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	aClock := storeFactory clock.	
 
-xxx checkoutWithCartId: cartId withCardNumber:99999 expirationDate: (GregorianMonthOfYear year: (FixedGregorianDate today year next ) month: November ) name:'Juana Perez'user:'juan'.
+	 aClock incrementMinutes: 10.
+	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	aClock incrementMinutes: 10.
+	aCreditCard := storeFactory validCreditCard.
+	books := OrderedCollection new.
+	books add: storeFactory itemSellByTheStore.
+	books add: storeFactory itemSellByTheStore.
+	aSale := Sale of: (storeFactory itemSellByTheStorePrice * 2) withItems: books. 
+	xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
 
-self assert: [(xxx listOfPurchasesOfUser:'juan' withPassword: 'Nahuel' ) size=2]
+	self assert: [(xxx listOfPurchasesOfUser: storeFactory validUser withPassword: storeFactory validPassword ) = aSale]
 
+	
 	
 
 ! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'jav 11/14/2019 21:09:39'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:14:11'!
 testx4CantListPurchasesWithInvalidUser
- |xxx  aCatalog aUsersWithPasswords cartId abook aClock |
+	|xxx  cartId aCreditCard aClock storeFactory |
 
- aUsersWithPasswords := Dictionary new.
- aUsersWithPasswords add: 'juan' -> 'Nahuel'.
- aCatalog _ Dictionary new.
- abook _ 'abook'.
- aCatalog add: abook->10.
- aClock := FakeDate new.
- xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: aClock.
- cartId _ xxx createCartOfUser: 'juan' WithPassword: 'Nahuel'.
- aClock incrementMinutes: 10.
-xxx addToCart: cartId item: abook quantity: 2.
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
+	
+	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	aClock := storeFactory clock.	
 
-xxx checkoutWithCartId: cartId withCardNumber:99999 expirationDate: (GregorianMonthOfYear year: (FixedGregorianDate today year next ) month: November ) name:'Juana Perez'user:'juan'.
+	 aClock incrementMinutes: 10.
+	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	aClock incrementMinutes: 10.
+	aCreditCard := storeFactory validCreditCard.
+	
+	xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: 	aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
 
-self should: [xxx listOfPurchasesOfUser:'Pepe' withPassword: 'Nahuel' ]
+
+self should: [xxx listOfPurchasesOfUser:storeFactory invalidUser withPassword: storeFactory validPassword ]
 	  raise: Error - MessageNotUnderstood
 	  withExceptionDo: [ :anError |
 	   self assert: anError messageText = XXX InvalidUserMessage ].
@@ -394,35 +369,63 @@ self should: [xxx listOfPurchasesOfUser:'Pepe' withPassword: 'Nahuel' ]
 
 ! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'jav 11/14/2019 21:12:20'!
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:14:37'!
 testx5CantListPurchasesWithInvalidPassword
- |xxx  aCatalog aUsersWithPasswords cartId abook aClock |
+	|xxx  cartId aCreditCard aClock storeFactory |
 
- aUsersWithPasswords := Dictionary new.
- aUsersWithPasswords add: 'juan' -> 'Nahuel'.
- aCatalog _ Dictionary new.
- abook _ 'abook'.
- aCatalog add: abook->10.
- aClock := FakeDate new.
- xxx _ XXX initializeInternalMerchantProcessorWithCatalog:aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: aClock.
- cartId _ xxx createCartOfUser: 'juan' WithPassword: 'Nahuel'.
- aClock incrementMinutes: 10.
-xxx addToCart: cartId item: abook quantity: 2.
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
+	
+	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	aClock := storeFactory clock.	
 
-xxx checkoutWithCartId: cartId withCardNumber:99999 expirationDate: (GregorianMonthOfYear year: (FixedGregorianDate today year next ) month: November ) name:'Juana Perez'user:'juan'.
+	 aClock incrementMinutes: 10.
+	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	aClock incrementMinutes: 10.
+	aCreditCard := storeFactory validCreditCard.
+	
+	xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: 	aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
 
-self should: [xxx listOfPurchasesOfUser:'juan' withPassword: 'asd' ]
+
+self should: [xxx listOfPurchasesOfUser:storeFactory validUser withPassword: storeFactory invalidPassword ]
 	  raise: Error - MessageNotUnderstood
 	  withExceptionDo: [ :anError |
 	   self assert: anError messageText = XXX InvalidUserMessage ].
 
 
+	
+
+! !
+
+!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 18:17:56'!
+testx6MultipleCheckouts
+	|xxx  cartId aCreditCard aClock storeFactory aSale books|
+
+	storeFactory := StoreTestObjectsFactory new.
+	xxx _ storeFactory defaultXXX.
+	
+	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	aClock := storeFactory clock.	
+
+	 aClock incrementMinutes: 10.
+	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	aClock incrementMinutes: 10.
+	aCreditCard := storeFactory validCreditCard.
+	books := OrderedCollection new.
+	books add: storeFactory itemSellByTheStore.
+	books add: storeFactory itemSellByTheStore.
+	aSale := Sale of: (storeFactory itemSellByTheStorePrice * 2) withItems: books. 
+	xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
+	
+	self assert: [(xxx listOfPurchasesOfUser: storeFactory validUser withPassword: storeFactory validPassword ) = aSale]
+
+	
 	
 
 ! !
 
 
-!classDefinition: #Cart category: #TusLibros!
+!classDefinition: #Cart category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Object subclass: #Cart
 	instanceVariableNames: 'catalog items'
 	classVariableNames: ''
@@ -502,7 +505,7 @@ add: aQuantity of: anItem
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cart class' category: #TusLibros!
+!classDefinition: 'Cart class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Cart class
 	instanceVariableNames: ''!
 
@@ -512,7 +515,7 @@ acceptingItemsOf: aCatalog
 	^self new initializeAcceptingItemsOf: aCatalog ! !
 
 
-!classDefinition: #Cashier category: #TusLibros!
+!classDefinition: #Cashier category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Object subclass: #Cashier
 	instanceVariableNames: 'salesBook'
 	classVariableNames: ''
@@ -527,15 +530,15 @@ checkout: aCart withCreditCard: aCard
 	
 	! !
 
-!Cashier methodsFor: 'as yet unclassified' stamp: 'JAV 11/6/2019 22:48:20'!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 11:53:44'!
 checkout: aCart withCreditCard: aCard withMerchantProcessor:amerchantProcessor
-	
+	|aSale|
 	aCart isEmpty ifTrue:[ self error: self class EmptyCartErrorMessage].
 	
 	amerchantProcessor debit.	
-	
-	salesBook add: (aCart total).
-	
+	aSale := Sale of:aCart total withItems: aCart items.
+	salesBook add: aSale.
+	^aSale.
 	
 	! !
 
@@ -545,7 +548,7 @@ initializeWith:aSalesBook
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cashier class' category: #TusLibros!
+!classDefinition: 'Cashier class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Cashier class
 	instanceVariableNames: ''!
 
@@ -559,7 +562,7 @@ initializeWith: aSalesBook
 	^self new initializeWith:aSalesBook. ! !
 
 
-!classDefinition: #CreditCard category: #TusLibros!
+!classDefinition: #CreditCard category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'name number expDate'
 	classVariableNames: ''
@@ -572,13 +575,21 @@ createWithNumber:aNumber expirationDate:aDate name:aName
 	number:=aNumber.
 	expDate:=aDate.! !
 
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:09:31'!
+expirationDate
+	^expDate.! !
+
 !CreditCard methodsFor: 'as yet unclassified' stamp: 'JAV 11/4/2019 20:42:41'!
 isEpiredOnDate: aDate
 	^ expDate < aDate! !
 
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:09:17'!
+number
+	^number! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'CreditCard class' category: #TusLibros!
+!classDefinition: 'CreditCard class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 CreditCard class
 	instanceVariableNames: ''!
 
@@ -588,7 +599,7 @@ withNumber:aNumber expirationDate:aDate name:aName
 	^self new createWithNumber:aNumber expirationDate:aDate name:aName.! !
 
 
-!classDefinition: #FakeDate category: #TusLibros!
+!classDefinition: #FakeDate category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Object subclass: #FakeDate
 	instanceVariableNames: 'lastDate increment'
 	classVariableNames: ''
@@ -611,9 +622,35 @@ now
 ! !
 
 
-!classDefinition: #Sale category: #TusLibros!
+!classDefinition: #FakeMerchantProcessor category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+Object subclass: #FakeMerchantProcessor
+	instanceVariableNames: 'closure'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!FakeMerchantProcessor methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 15:35:29'!
+debit
+	^closure value.! !
+
+!FakeMerchantProcessor methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 15:35:23'!
+withAction:aClosure
+	closure := aClosure.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'FakeMerchantProcessor class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+FakeMerchantProcessor class
+	instanceVariableNames: ''!
+
+!FakeMerchantProcessor class methodsFor: 'instance creation' stamp: 'JCCCT 11/16/2019 15:34:40'!
+withAction:aClosure
+	^ self new withAction: aClosure.! !
+
+
+!classDefinition: #Sale category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Object subclass: #Sale
-	instanceVariableNames: 'total'
+	instanceVariableNames: 'total items'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -623,13 +660,28 @@ total
 	^total.! !
 
 
-!Sale methodsFor: 'initialization' stamp: 'jj 11/13/2019 15:17:36'!
-initializeTotal: aTotal
+!Sale methodsFor: 'initialization' stamp: 'JCCCT 11/16/2019 11:27:31'!
+initializeTotal: aTotal withItems: someItems
+	items := someItems.
 	total := aTotal.! !
+
+
+!Sale methodsFor: 'items' stamp: 'JCCCT 11/16/2019 11:32:32'!
+items
+	^items.! !
+
+
+!Sale methodsFor: 'comparing' stamp: 'JCCCT 11/16/2019 11:32:20'!
+= aSale
+	^total = aSale total and:[items = aSale items].! !
+
+!Sale methodsFor: 'comparing' stamp: 'JCCCT 11/16/2019 11:36:46'!
+hash
+	^total hash bitXor: items hash.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Sale class' category: #TusLibros!
+!classDefinition: 'Sale class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Sale class
 	instanceVariableNames: ''!
 
@@ -637,15 +689,15 @@ Sale class
 InvalidTotalMessageDescription
 	^'Total of sale should be positive'! !
 
-!Sale class methodsFor: 'as yet unclassified' stamp: 'jj 11/13/2019 15:21:39'!
-of: aTotal
+!Sale class methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 11:28:02'!
+of: aTotal withItems: someItems
 	aTotal <= 0 ifTrue:[self error: self InvalidTotalMessageDescription].
-	^self new initializeTotal: aTotal! !
+	^self new initializeTotal: aTotal withItems: someItems.! !
 
 
-!classDefinition: #StoreTestObjectsFactory category: #TusLibros!
+!classDefinition: #StoreTestObjectsFactory category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Object subclass: #StoreTestObjectsFactory
-	instanceVariableNames: 'today'
+	instanceVariableNames: 'today clock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
@@ -688,10 +740,10 @@ validCreditCardUser
 createCart
 	^Cart acceptingItemsOf: self defaultCatalog.! !
 
-!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'jj 11/13/2019 15:32:35'!
+!StoreTestObjectsFactory methodsFor: 'cart' stamp: 'JCCCT 11/15/2019 19:53:23'!
 defaultCatalog 
 	^ Dictionary new
-	at: self ItemSellByTheStore put: self itemSellByTheStorePrice;
+	at: self itemSellByTheStore put: self itemSellByTheStorePrice;
 	yourself! !
 
 
@@ -714,25 +766,64 @@ itemSellByTheStorePrice
 ! !
 
 
-!StoreTestObjectsFactory methodsFor: 'initialization' stamp: 'jj 11/13/2019 15:52:36'!
+!StoreTestObjectsFactory methodsFor: 'initialization' stamp: 'JCCCT 11/15/2019 19:56:20'!
 initialize
 
-	today := FakeDate now. 
-! !
+	today := FakeDate new now. 
+	clock := FakeDate new.! !
+
+
+!StoreTestObjectsFactory methodsFor: 'xxx' stamp: 'JCCCT 11/15/2019 19:57:03'!
+clock
+	^clock.! !
+
+!StoreTestObjectsFactory methodsFor: 'xxx' stamp: 'JCCCT 11/16/2019 15:50:07'!
+defaultXXX
+	
+	^XXX initializeXXXWithCatalog:self defaultCatalog andUsersWithPasswords: self usersAndPasswords withClock: self clock withMerchantProcessor: self succesfullMerchantProcessor.! !
+
+!StoreTestObjectsFactory methodsFor: 'xxx' stamp: 'JCCCT 11/15/2019 19:48:31'!
+usersAndPasswords
+	|aDic|
+	aDic := Dictionary new.
+	aDic add: 'juan' -> 'Nahuel'.
+	^ aDic.! !
+
+
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:02:37'!
+invalidPassword
+	^'Nahuelito'! !
+
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:02:06'!
+invalidUser
+	^'Juanito'! !
+
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 15:51:42'!
+succesfullMerchantProcessor
+	^ FakeMerchantProcessor withAction: [true].! !
+
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 19:59:54'!
+validPassword
+	^'Nahuel'! !
+
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 19:59:40'!
+validUser
+	^'juan'! !
 
 
-!classDefinition: #XXX category: #TusLibros!
+!classDefinition: #XXX category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 Object subclass: #XXX
-	instanceVariableNames: 'catalog carts nextCartId timeOfCarts usersWithPassword clock salesOfUsers'
+	instanceVariableNames: 'catalog carts nextCartId timeOfCarts usersWithPassword clock salesOfUsers merchantProcessor'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!XXX methodsFor: 'initialization' stamp: 'jav 11/14/2019 20:44:47'!
-initializeInitializeInternalMerchantProcessorWithCatalog: aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock: aClock
+!XXX methodsFor: 'initialization' stamp: 'JCCCT 11/16/2019 11:56:59'!
+initializeXXXWithCatalog: aCatalog andUsersWithPasswords: aUsersWithPasswords withClock: aClock withMerchantProcessor: aMerchProcessor
 	salesOfUsers := Dictionary new.
 	clock:=aClock.
 	usersWithPassword  := aUsersWithPasswords.
+	merchantProcessor := aMerchProcessor.
 	carts _ Dictionary new. 
 	timeOfCarts _ Dictionary new. 
 	catalog _ aCatalog.
@@ -753,12 +844,15 @@ catalog
 	
 	^catalog! !
 
-!XXX methodsFor: 'as yet unclassified' stamp: 'jav 11/14/2019 21:51:32'!
+!XXX methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 11:55:44'!
 checkoutWithCartId: cartId withCardNumber: cardNumber expirationDate: aDate name: aName user:userId
-	
+	|aCashier aSalesBook aCard aSale|
 	((timeOfCarts at:cartId) <= (clock now -30 minutes)) ifTrue:[^self error: self class TimeElapsed ].
-	"aca habria q llamar a un cashier para hacer el checkout?"
-	salesOfUsers add: userId -> (carts at:cartId) items.! !
+	aSalesBook := OrderedCollection new.
+	aCashier := Cashier initializeWith: aSalesBook.
+	aCard := CreditCard withNumber: cardNumber expirationDate: aDate  name: aName.
+	aSale := aCashier checkout: (carts at: cartId) withCreditCard: aCard withMerchantProcessor: merchantProcessor.
+	salesOfUsers add: userId -> aSale.! !
 
 !XXX methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 21:37:47'!
 createCartOfUser: aUser WithPassword:aPassword 
@@ -784,19 +878,14 @@ listOfPurchasesOfUser: userId withPassword: pw
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'XXX class' category: #TusLibros!
+!classDefinition: 'XXX class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
 XXX class
 	instanceVariableNames: ''!
 
-!XXX class methodsFor: 'instance creation' stamp: 'JAV 11/7/2019 20:07:07'!
-initializeInternalMerchantProcessorWithCatalog: aCatalog
+!XXX class methodsFor: 'instance creation' stamp: 'JCCCT 11/16/2019 11:57:15'!
+initializeXXXWithCatalog: aCatalog  andUsersWithPasswords: aUsersWithPasswords withClock:aClock withMerchantProcessor: aMerchantProcessor
 	
-	^self new initializeInitializeInternalMerchantProcessorWithCatalog: aCatalog. ! !
-
-!XXX class methodsFor: 'instance creation' stamp: 'JAV 11/11/2019 21:33:32'!
-initializeInternalMerchantProcessorWithCatalog: aCatalog  AndUsersWithPasswords: aUsersWithPasswords withClock:aClock
-	
-	^self new initializeInitializeInternalMerchantProcessorWithCatalog: aCatalog AndUsersWithPasswords: aUsersWithPasswords withClock:aClock. ! !
+	^self new initializeXXXWithCatalog: aCatalog andUsersWithPasswords: aUsersWithPasswords withClock:aClock withMerchantProcessor: aMerchantProcessor. ! !
 
 
 !XXX class methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 17:56:50'!
