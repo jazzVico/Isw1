@@ -1,4 +1,4 @@
-!classDefinition: #CartTest category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #CartTest category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 TestCase subclass: #CartTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -113,7 +113,7 @@ itemSellByTheStore
 	^ 'validBook'! !
 
 
-!classDefinition: #CashierTest category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #CashierTest category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: 'aClosure'
 	classVariableNames: ''
@@ -214,218 +214,253 @@ test05CashierFailsWhenCreditCardIsExpiredAndDoesNotExecuteMerchantProcessor
 	! !
 
 
-!classDefinition: #XXXTest category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
-TestCase subclass: #XXXTest
-	instanceVariableNames: 'aClosure'
+!classDefinition: #StoreInternalApiRestTest category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
+TestCase subclass: #StoreInternalApiRestTest
+	instanceVariableNames: 'aClosure storeFactory storeInternalApiRest clock'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 19:51:48'!
-test01CreateAnEmptyCartAndListItemsAskingById
-	|anInternalMerchantProcessor cartId itemsOfCart storeFactory|
+!StoreInternalApiRestTest methodsFor: 'tests - list purchases' stamp: 'JCCCT 11/17/2019 10:07:31'!
+test13CantListPurchasesWithInvalidUser
+	|cartId aCreditCard|
+	
+	cartId _ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+
+	 clock incrementMinutes: 10.
+	storeInternalApiRest addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	clock incrementMinutes: 10.
+	aCreditCard := storeFactory validCreditCard.
+	
+	storeInternalApiRest checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: 	aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
+
+
+self should: [storeInternalApiRest listOfPurchasesOfUser:storeFactory invalidUser withPassword: storeFactory validPassword ]
+	  raise: Error - MessageNotUnderstood
+	  withExceptionDo: [ :anError |
+	   self assert: anError messageText = StoreInternalApiRest InvalidUserMessage ].
+
+
+	
+
+! !
+
+!StoreInternalApiRestTest methodsFor: 'tests - list purchases' stamp: 'JCCCT 11/17/2019 10:07:36'!
+test14CantListPurchasesWithInvalidPassword
+	|cartId aCreditCard|
+		
+	cartId _ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+
+	 clock incrementMinutes: 10.
+	storeInternalApiRest addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	clock incrementMinutes: 10.
+	aCreditCard := storeFactory validCreditCard.
+	
+	storeInternalApiRest checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: 	aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
+
+
+self should: [storeInternalApiRest listOfPurchasesOfUser:storeFactory validUser withPassword: storeFactory invalidPassword ]
+	  raise: Error - MessageNotUnderstood
+	  withExceptionDo: [ :anError |
+	   self assert: anError messageText = StoreInternalApiRest InvalidUserMessage ].
+
+
+	
+
+! !
+
+
+!StoreInternalApiRestTest methodsFor: 'tests -checkout' stamp: 'JCCCT 11/17/2019 09:57:59'!
+test09CantCheckoutCartAfter30Min
+ |cartId aCreditCard|
+
+	cartId _ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+
+	 clock incrementMinutes: 10.
+	storeInternalApiRest addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	clock incrementMinutes: 30.
+	aCreditCard := storeFactory validCreditCard.
+	
+ 	self should:[storeInternalApiRest checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.]
+  raise: Error - MessageNotUnderstood
+  withExceptionDo: [ :anError |
+   self assert: anError messageText = StoreInternalApiRest TimeElapsed].
+
+	
+
+! !
+
+!StoreInternalApiRestTest methodsFor: 'tests -checkout' stamp: 'JCCCT 11/17/2019 09:57:59'!
+test10CheckoutSucceds
+	|cartId aCreditCard aSale books|
+
+	
+	cartId _ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	 clock incrementMinutes: 10.
+	storeInternalApiRest addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	clock incrementMinutes: 10.
+	aCreditCard := storeFactory validCreditCard.
+	
+	books := OrderedCollection new.
+	books add: storeFactory itemSellByTheStore.
+	books add: storeFactory itemSellByTheStore.
+	
+	aSale := Sale of: (storeFactory itemSellByTheStorePrice * 2) withItems: books. 
+	
+	storeInternalApiRest checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
+
+	self assert: [(storeInternalApiRest listOfPurchasesOfUser: storeFactory validUser withPassword: storeFactory validPassword ) = aSale]
+
+	
+	
+
+! !
+
+!StoreInternalApiRestTest methodsFor: 'tests -checkout' stamp: 'JCCCT 11/17/2019 10:07:19'!
+test11CantCheckoutInvalidUser
+	|cartId aCreditCard |
+	
+	cartId _ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	
+	 clock incrementMinutes: 10.
+	storeInternalApiRest addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+ 	clock incrementMinutes: 10.
+	aCreditCard := storeFactory validCreditCard.
+	
+	
+
+
+self should: [storeInternalApiRest checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: 	aCreditCard expirationDate name:aCreditCard name user:storeFactory invalidUser.]
+	  raise: Error - MessageNotUnderstood
+	  withExceptionDo: [ :anError |
+	   self assert: anError messageText = StoreInternalApiRest InvalidUserMessage ].
+
+
+	
+
+! !
+
+!StoreInternalApiRestTest methodsFor: 'tests -checkout' stamp: 'JCCCT 11/17/2019 10:07:25'!
+test12CantCheckoutInvalidCart
+	|aCreditCard|
+
+	aCreditCard := storeFactory validCreditCard.
+	self should: [storeInternalApiRest checkoutWithCartId: storeFactory invalidCartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.]
+	  raise: Error - MessageNotUnderstood
+	  withExceptionDo: [ :anError |
+	   self assert: anError messageText = StoreInternalApiRest invalidCartIdMessage].
+
+
+	
+
+! !
+
+
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 10:16:07'!
+setUp
 	storeFactory := StoreTestObjectsFactory new.
-	anInternalMerchantProcessor _ storeFactory defaultXXX.
-	cartId _ anInternalMerchantProcessor createCartOfUser: 'juan' WithPassword: 'Nahuel' .
-	itemsOfCart  _ anInternalMerchantProcessor listItemsOfCart:cartId.
+	storeInternalApiRest := storeFactory defaultStoreInternalApiRest.
+	clock := storeFactory clock.
+
+	
+
+! !
+
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:52'!
+test01CreateAnEmptyCartAndListItemsAskingById
+	|cartId itemsOfCart|
+	cartId _ storeInternalApiRest createCartOfUser: 'juan' WithPassword: 'Nahuel' .
+	itemsOfCart  _ storeInternalApiRest listItemsOfCart:cartId.
 	self assert: itemsOfCart isEmpty. 
 	
 	! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 11:41:32'!
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:52'!
 test02CreateACartAndListItemsAskingById
-	|xxx cartId itemsOfCart storeFactory|
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
+	| cartId itemsOfCart|
 	
-	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	cartId _ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
 	
-	xxx addToCart:cartId item: storeFactory itemSellByTheStore quantity:3.
-	itemsOfCart  _ xxx listItemsOfCart:cartId.
+	storeInternalApiRest addToCart:cartId item: storeFactory itemSellByTheStore quantity:3.
+	itemsOfCart  _ storeInternalApiRest listItemsOfCart:cartId.
 	
-	self assert: itemsOfCart size =3.
-	self assert: itemsOfCart includes: storeFactory itemSellByTheStore. ! !
+	self assert: (itemsOfCart occurrencesOf: storeFactory itemSellByTheStore) equals: 3. ! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:02:22'!
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:52'!
 test03CantCreateACartWithInvalidUser
-	|xxx   storeFactory|
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
 	
-	self should:[ xxx createCartOfUser: storeFactory invalidUser WithPassword: storeFactory invalidPassword.]
+	
+	self should:[ storeInternalApiRest createCartOfUser: storeFactory invalidUser WithPassword: storeFactory invalidPassword.]
 	raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = XXX InvalidUserMessage].
+			self assert: anError messageText = StoreInternalApiRest InvalidUserMessage].
 
 	! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:03:20'!
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:52'!
 test04CantCreateACartWithInvalidPassword
-	|xxx   storeFactory|
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
 	
-	self should:[ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory invalidPassword.]
+	self should:[ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory invalidPassword.]
 	raise: Error - MessageNotUnderstood
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = XXX InvalidUserMessage].
+			self assert: anError messageText = StoreInternalApiRest InvalidUserMessage].
 	! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:05:14'!
-testx1CantAddToCartAfter30Min
- |xxx  cartId aClock storeFactory|
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:52'!
+test05CantAddItemToNonExsitingCart
+	|cartId|
+	cartId := storeFactory invalidCartId.
 	
-	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
-	aClock := storeFactory clock.	
+	self should:[ storeInternalApiRest addToCart:cartId item: storeFactory itemSellByTheStore quantity:3.]
+	raise: Error - MessageNotUnderstood
+		withExceptionDo: [ :anError |
+			self assert: anError messageText = StoreInternalApiRest invalidCartIdMessage].! !
 
-	 aClock incrementMinutes: 30.
-	self should:[xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2]
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:52'!
+test06CantListInvalidCart
+	
+	self should:[storeInternalApiRest listItemsOfCart:storeFactory invalidCartId]
   		 raise: Error - MessageNotUnderstood
   		withExceptionDo: [ :anError |
-   							self assert: anError messageText = XXX TimeElapsed].
+   							self assert: anError messageText = StoreInternalApiRest invalidCartIdMessage].
 
 	
 
 ! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:11:02'!
-testx2CantCheckoutCartAfter30Min
- |xxx  cartId aCreditCard aClock storeFactory |
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:59'!
+test07CantAddToCartAfter30Min
+ |cartId|
+	cartId _ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
 
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
-	
-	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
-	aClock := storeFactory clock.	
-
-	 aClock incrementMinutes: 10.
-	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
- 	aClock incrementMinutes: 30.
-	aCreditCard := storeFactory validCreditCard.
-	
- 	self should:[xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.]
-  raise: Error - MessageNotUnderstood
-  withExceptionDo: [ :anError |
-   self assert: anError messageText = XXX TimeElapsed].
+	 clock incrementMinutes: 30.
+	self should:[storeInternalApiRest addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2]
+  		 raise: Error - MessageNotUnderstood
+  		withExceptionDo: [ :anError |
+   							self assert: anError messageText = StoreInternalApiRest TimeElapsed].
 
 	
 
 ! !
 
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 15:56:30'!
-testx3CheckoutSucceds
-	|xxx  cartId aCreditCard aClock storeFactory aSale books|
-
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
+!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:59'!
+test08CantListCartAfter30Min
+ |cartId|
 	
-	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
-	aClock := storeFactory clock.	
+	cartId _ storeInternalApiRest createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
+	storeInternalApiRest addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
+	 clock incrementMinutes: 30.
+	self should:[storeInternalApiRest listItemsOfCart: cartId]
+  		 raise: Error - MessageNotUnderstood
+  		withExceptionDo: [ :anError |
+   							self assert: anError messageText = StoreInternalApiRest TimeElapsed].
 
-	 aClock incrementMinutes: 10.
-	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
- 	aClock incrementMinutes: 10.
-	aCreditCard := storeFactory validCreditCard.
-	books := OrderedCollection new.
-	books add: storeFactory itemSellByTheStore.
-	books add: storeFactory itemSellByTheStore.
-	aSale := Sale of: (storeFactory itemSellByTheStorePrice * 2) withItems: books. 
-	xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
-
-	self assert: [(xxx listOfPurchasesOfUser: storeFactory validUser withPassword: storeFactory validPassword ) = aSale]
-
-	
-	
-
-! !
-
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:14:11'!
-testx4CantListPurchasesWithInvalidUser
-	|xxx  cartId aCreditCard aClock storeFactory |
-
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
-	
-	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
-	aClock := storeFactory clock.	
-
-	 aClock incrementMinutes: 10.
-	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
- 	aClock incrementMinutes: 10.
-	aCreditCard := storeFactory validCreditCard.
-	
-	xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: 	aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
-
-
-self should: [xxx listOfPurchasesOfUser:storeFactory invalidUser withPassword: storeFactory validPassword ]
-	  raise: Error - MessageNotUnderstood
-	  withExceptionDo: [ :anError |
-	   self assert: anError messageText = XXX InvalidUserMessage ].
-
-
-	
-
-! !
-
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:14:37'!
-testx5CantListPurchasesWithInvalidPassword
-	|xxx  cartId aCreditCard aClock storeFactory |
-
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
-	
-	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
-	aClock := storeFactory clock.	
-
-	 aClock incrementMinutes: 10.
-	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
- 	aClock incrementMinutes: 10.
-	aCreditCard := storeFactory validCreditCard.
-	
-	xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: 	aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
-
-
-self should: [xxx listOfPurchasesOfUser:storeFactory validUser withPassword: storeFactory invalidPassword ]
-	  raise: Error - MessageNotUnderstood
-	  withExceptionDo: [ :anError |
-	   self assert: anError messageText = XXX InvalidUserMessage ].
-
-
-	
-
-! !
-
-!XXXTest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 18:17:56'!
-testx6MultipleCheckouts
-	|xxx  cartId aCreditCard aClock storeFactory aSale books|
-
-	storeFactory := StoreTestObjectsFactory new.
-	xxx _ storeFactory defaultXXX.
-	
-	cartId _ xxx createCartOfUser: storeFactory validUser WithPassword: storeFactory validPassword.
-	aClock := storeFactory clock.	
-
-	 aClock incrementMinutes: 10.
-	xxx addToCart: cartId item: storeFactory itemSellByTheStore quantity: 2.
- 	aClock incrementMinutes: 10.
-	aCreditCard := storeFactory validCreditCard.
-	books := OrderedCollection new.
-	books add: storeFactory itemSellByTheStore.
-	books add: storeFactory itemSellByTheStore.
-	aSale := Sale of: (storeFactory itemSellByTheStorePrice * 2) withItems: books. 
-	xxx checkoutWithCartId: cartId withCardNumber:aCreditCard number expirationDate: aCreditCard expirationDate name:aCreditCard name user:storeFactory validUser.
-	
-	self assert: [(xxx listOfPurchasesOfUser: storeFactory validUser withPassword: storeFactory validPassword ) = aSale]
-
-	
 	
 
 ! !
 
 
-!classDefinition: #Cart category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #Cart category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Object subclass: #Cart
 	instanceVariableNames: 'catalog items'
 	classVariableNames: ''
@@ -505,7 +540,7 @@ add: aQuantity of: anItem
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cart class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: 'Cart class' category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Cart class
 	instanceVariableNames: ''!
 
@@ -515,7 +550,7 @@ acceptingItemsOf: aCatalog
 	^self new initializeAcceptingItemsOf: aCatalog ! !
 
 
-!classDefinition: #Cashier category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #Cashier category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Object subclass: #Cashier
 	instanceVariableNames: 'salesBook'
 	classVariableNames: ''
@@ -548,7 +583,7 @@ initializeWith:aSalesBook
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cashier class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: 'Cashier class' category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Cashier class
 	instanceVariableNames: ''!
 
@@ -562,7 +597,7 @@ initializeWith: aSalesBook
 	^self new initializeWith:aSalesBook. ! !
 
 
-!classDefinition: #CreditCard category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #CreditCard category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'name number expDate'
 	classVariableNames: ''
@@ -589,7 +624,7 @@ number
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'CreditCard class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: 'CreditCard class' category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 CreditCard class
 	instanceVariableNames: ''!
 
@@ -599,7 +634,7 @@ withNumber:aNumber expirationDate:aDate name:aName
 	^self new createWithNumber:aNumber expirationDate:aDate name:aName.! !
 
 
-!classDefinition: #FakeDate category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #FakeDate category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Object subclass: #FakeDate
 	instanceVariableNames: 'lastDate increment'
 	classVariableNames: ''
@@ -622,7 +657,7 @@ now
 ! !
 
 
-!classDefinition: #FakeMerchantProcessor category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #FakeMerchantProcessor category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Object subclass: #FakeMerchantProcessor
 	instanceVariableNames: 'closure'
 	classVariableNames: ''
@@ -639,7 +674,7 @@ withAction:aClosure
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'FakeMerchantProcessor class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: 'FakeMerchantProcessor class' category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 FakeMerchantProcessor class
 	instanceVariableNames: ''!
 
@@ -648,7 +683,7 @@ withAction:aClosure
 	^ self new withAction: aClosure.! !
 
 
-!classDefinition: #Sale category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #Sale category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Object subclass: #Sale
 	instanceVariableNames: 'total items'
 	classVariableNames: ''
@@ -681,7 +716,7 @@ hash
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Sale class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: 'Sale class' category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Sale class
 	instanceVariableNames: ''!
 
@@ -695,7 +730,112 @@ of: aTotal withItems: someItems
 	^self new initializeTotal: aTotal withItems: someItems.! !
 
 
-!classDefinition: #StoreTestObjectsFactory category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
+!classDefinition: #StoreInternalApiRest category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
+Object subclass: #StoreInternalApiRest
+	instanceVariableNames: 'catalog carts nextCartId timeOfCarts usersWithPassword clock salesOfUsers merchantProcessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!StoreInternalApiRest methodsFor: 'initialization' stamp: 'JCCCT 11/17/2019 10:15:28'!
+initializeStoreInternalApiRestWithCatalog: aCatalog andUsersWithPasswords: aUsersWithPasswords withClock: aClock withMerchantProcessor: aMerchProcessor
+	salesOfUsers := Dictionary new.
+	clock:=aClock.
+	usersWithPassword  := aUsersWithPasswords.
+	merchantProcessor := aMerchProcessor.
+	carts _ Dictionary new. 
+	timeOfCarts _ Dictionary new. 
+	catalog _ aCatalog.
+	nextCartId _ 0.! !
+
+
+!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 10:11:22'!
+addToCart: cartId item: anItem quantity: aQuantity 
+	self signalInvalidCart: cartId.
+	self signalExpiredCart: cartId.
+
+	timeOfCarts at: cartId put:clock now. 
+	(carts at: cartId) add:aQuantity of:anItem.! !
+
+!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 10:13:41'!
+checkoutWithCartId: cartId withCardNumber: cardNumber expirationDate: aDate name: aName user:userId
+	|aCashier aSalesBook aCard aSale|
+	self signalInvalidCart: cartId.
+	self signalExpiredCart: cartId.
+	(usersWithPassword includesKey: userId) ifFalse:[self error: self class InvalidUserMessage ].
+
+	aSalesBook := OrderedCollection new.
+	aCashier := Cashier initializeWith: aSalesBook.
+	aCard := CreditCard withNumber: cardNumber expirationDate: aDate  name: aName.
+	aSale := aCashier checkout: (carts at: cartId) withCreditCard: aCard withMerchantProcessor: merchantProcessor.
+	salesOfUsers add: userId -> aSale.! !
+
+!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 10:12:35'!
+createCartOfUser: aUser WithPassword:aPassword 
+	self signalValidUser:aUser withPassword:aPassword.
+	
+	carts add: nextCartId->(Cart acceptingItemsOf: catalog).
+	timeOfCarts add: nextCartId->(clock now ).
+	nextCartId _ nextCartId+1.
+	^nextCartId-1.! !
+
+!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 18:03:29'!
+isValidUser: aUser WithPassword: aPassword
+	^(usersWithPassword includesKey: aUser) and:[(usersWithPassword at: aUser) = aPassword].! !
+
+!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 10:11:22'!
+listItemsOfCart: aCartId
+	self signalInvalidCart: aCartId.
+	self signalExpiredCart: aCartId.
+	^ (carts at: aCartId) items .! !
+
+!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 10:14:47'!
+listOfPurchasesOfUser: aUser withPassword: aPassword
+	self signalValidUser:aUser withPassword:aPassword.
+	^salesOfUsers at: aUser.! !
+
+
+!StoreInternalApiRest methodsFor: 'signals' stamp: 'JCCCT 11/17/2019 10:11:22'!
+signalExpiredCart: aCartId 
+	|aPreviousTime nextTime|
+	aPreviousTime := timeOfCarts at: aCartId.
+	nextTime := clock now.
+	aPreviousTime <= ( nextTime - 30 minutes) ifTrue:[self error:  self class TimeElapsed ].! !
+
+!StoreInternalApiRest methodsFor: 'signals' stamp: 'JCCCT 11/17/2019 09:27:17'!
+signalInvalidCart: aCartId 
+	(carts includesKey: aCartId) ifFalse:[self error: self class invalidCartIdMessage ].! !
+
+!StoreInternalApiRest methodsFor: 'signals' stamp: 'JCCCT 11/17/2019 10:12:54'!
+signalValidUser:aUser withPassword:aPassword
+	(self isValidUser: aUser WithPassword: aPassword) ifFalse: [^self error: self class InvalidUserMessage].! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'StoreInternalApiRest class' category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
+StoreInternalApiRest class
+	instanceVariableNames: ''!
+
+!StoreInternalApiRest class methodsFor: 'instance creation' stamp: 'JCCCT 11/17/2019 10:15:28'!
+initializeStoreInternalApiRestWithCatalog: aCatalog  andUsersWithPasswords: aUsersWithPasswords withClock:aClock withMerchantProcessor: aMerchantProcessor
+	
+	^self new initializeStoreInternalApiRestWithCatalog: aCatalog andUsersWithPasswords: aUsersWithPasswords withClock:aClock withMerchantProcessor: aMerchantProcessor. ! !
+
+
+!StoreInternalApiRest class methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 17:56:50'!
+InvalidUserMessage
+	^'Invalid User or Password'.! !
+
+!StoreInternalApiRest class methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 20:18:36'!
+TimeElapsed
+	^'Time elapsed and cart wad destroyed.'.! !
+
+!StoreInternalApiRest class methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 09:02:46'!
+invalidCartIdMessage
+	^'invalid cart id.'.! !
+
+
+!classDefinition: #StoreTestObjectsFactory category: #TusLibros stamp: 'JCCCT 11/17/2019 14:12:35'!
 Object subclass: #StoreTestObjectsFactory
 	instanceVariableNames: 'today clock'
 	classVariableNames: ''
@@ -773,22 +913,27 @@ initialize
 	clock := FakeDate new.! !
 
 
-!StoreTestObjectsFactory methodsFor: 'xxx' stamp: 'JCCCT 11/15/2019 19:57:03'!
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/15/2019 19:57:03'!
 clock
 	^clock.! !
 
-!StoreTestObjectsFactory methodsFor: 'xxx' stamp: 'JCCCT 11/16/2019 15:50:07'!
-defaultXXX
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/17/2019 10:16:07'!
+defaultStoreInternalApiRest
 	
-	^XXX initializeXXXWithCatalog:self defaultCatalog andUsersWithPasswords: self usersAndPasswords withClock: self clock withMerchantProcessor: self succesfullMerchantProcessor.! !
+	^StoreInternalApiRest initializeStoreInternalApiRestWithCatalog:self defaultCatalog andUsersWithPasswords: self usersAndPasswords withClock: self clock withMerchantProcessor: self succesfullMerchantProcessor.! !
 
-!StoreTestObjectsFactory methodsFor: 'xxx' stamp: 'JCCCT 11/15/2019 19:48:31'!
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/15/2019 19:48:31'!
 usersAndPasswords
 	|aDic|
 	aDic := Dictionary new.
 	aDic add: 'juan' -> 'Nahuel'.
 	^ aDic.! !
 
+
+!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 09:02:18'!
+invalidCartId
+	"cualquier cosa que ponga aca va a ser muy fea, pero nil me asegura de que no va a ser usada como cart id y es solo para testing"
+	^nil.! !
 
 !StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:02:37'!
 invalidPassword
@@ -809,89 +954,3 @@ validPassword
 !StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 19:59:40'!
 validUser
 	^'juan'! !
-
-
-!classDefinition: #XXX category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
-Object subclass: #XXX
-	instanceVariableNames: 'catalog carts nextCartId timeOfCarts usersWithPassword clock salesOfUsers merchantProcessor'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-
-!XXX methodsFor: 'initialization' stamp: 'JCCCT 11/16/2019 11:56:59'!
-initializeXXXWithCatalog: aCatalog andUsersWithPasswords: aUsersWithPasswords withClock: aClock withMerchantProcessor: aMerchProcessor
-	salesOfUsers := Dictionary new.
-	clock:=aClock.
-	usersWithPassword  := aUsersWithPasswords.
-	merchantProcessor := aMerchProcessor.
-	carts _ Dictionary new. 
-	timeOfCarts _ Dictionary new. 
-	catalog _ aCatalog.
-	nextCartId _ 0.! !
-
-
-!XXX methodsFor: 'as yet unclassified' stamp: 'jj 11/14/2019 19:45:11'!
-addToCart: cartId item: anItem quantity: aQuantity 
-	|aPreviousTime nextTime|
-	aPreviousTime := timeOfCarts at: cartId.
-	nextTime := clock now.
-	aPreviousTime <= ( nextTime- 30 minutes) ifTrue:[self error:  self class TimeElapsed ].
-	timeOfCarts at: cartId put:nextTime. 
-	(carts at: cartId) add:aQuantity of:anItem.! !
-
-!XXX methodsFor: 'as yet unclassified' stamp: 'JAV 11/7/2019 20:07:48'!
-catalog
-	
-	^catalog! !
-
-!XXX methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 11:55:44'!
-checkoutWithCartId: cartId withCardNumber: cardNumber expirationDate: aDate name: aName user:userId
-	|aCashier aSalesBook aCard aSale|
-	((timeOfCarts at:cartId) <= (clock now -30 minutes)) ifTrue:[^self error: self class TimeElapsed ].
-	aSalesBook := OrderedCollection new.
-	aCashier := Cashier initializeWith: aSalesBook.
-	aCard := CreditCard withNumber: cardNumber expirationDate: aDate  name: aName.
-	aSale := aCashier checkout: (carts at: cartId) withCreditCard: aCard withMerchantProcessor: merchantProcessor.
-	salesOfUsers add: userId -> aSale.! !
-
-!XXX methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 21:37:47'!
-createCartOfUser: aUser WithPassword:aPassword 
-	(self isValidUser: aUser WithPassword: aPassword) ifFalse: [^self error: self class InvalidUserMessage].
-	
-	carts add: nextCartId->(Cart acceptingItemsOf: catalog).
-	timeOfCarts add: nextCartId->(clock now ).
-	nextCartId _ nextCartId+1.
-	^nextCartId-1.! !
-
-!XXX methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 18:03:29'!
-isValidUser: aUser WithPassword: aPassword
-	^(usersWithPassword includesKey: aUser) and:[(usersWithPassword at: aUser) = aPassword].! !
-
-!XXX methodsFor: 'as yet unclassified' stamp: 'JAV 11/7/2019 20:25:53'!
-listItemsOfCart: anId 
-	^ (carts at: anId) items .! !
-
-!XXX methodsFor: 'as yet unclassified' stamp: 'jav 11/14/2019 21:11:31'!
-listOfPurchasesOfUser: userId withPassword: pw 
-	(self isValidUser: userId WithPassword: pw) ifFalse: [^self error: self class InvalidUserMessage].
-	^salesOfUsers at: userId.! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'XXX class' category: #TusLibros stamp: 'JCCCT 11/16/2019 18:18:02'!
-XXX class
-	instanceVariableNames: ''!
-
-!XXX class methodsFor: 'instance creation' stamp: 'JCCCT 11/16/2019 11:57:15'!
-initializeXXXWithCatalog: aCatalog  andUsersWithPasswords: aUsersWithPasswords withClock:aClock withMerchantProcessor: aMerchantProcessor
-	
-	^self new initializeXXXWithCatalog: aCatalog andUsersWithPasswords: aUsersWithPasswords withClock:aClock withMerchantProcessor: aMerchantProcessor. ! !
-
-
-!XXX class methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 17:56:50'!
-InvalidUserMessage
-	^'Invalid User or Password'.! !
-
-!XXX class methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 20:18:36'!
-TimeElapsed
-	^'Time elapsed and cart wad destroyed.'.! !
