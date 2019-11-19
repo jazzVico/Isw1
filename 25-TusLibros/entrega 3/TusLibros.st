@@ -1,4 +1,4 @@
-!classDefinition: #CartTest category: #TusLibros!
+!classDefinition: #CartTest category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 TestCase subclass: #CartTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -113,7 +113,7 @@ itemSellByTheStore
 	^ 'validBook'! !
 
 
-!classDefinition: #CashierTest category: #TusLibros!
+!classDefinition: #CashierTest category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: 'aClosure'
 	classVariableNames: ''
@@ -214,7 +214,7 @@ test05CashierFailsWhenCreditCardIsExpiredAndDoesNotExecuteMerchantProcessor
 	! !
 
 
-!classDefinition: #StoreInternalApiRestTest category: #TusLibros!
+!classDefinition: #StoreInternalApiRestTest category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 TestCase subclass: #StoreInternalApiRestTest
 	instanceVariableNames: 'aClosure storeFactory storeInternalApiRest clock'
 	classVariableNames: ''
@@ -356,16 +356,6 @@ test12CantCheckoutInvalidCart
 ! !
 
 
-!StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 10:16:07'!
-setUp
-	storeFactory := StoreTestObjectsFactory new.
-	storeInternalApiRest := storeFactory defaultStoreInternalApiRest.
-	clock := storeFactory clock.
-
-	
-
-! !
-
 !StoreInternalApiRestTest methodsFor: 'tests - cart' stamp: 'JCCCT 11/17/2019 09:57:52'!
 test01CreateAnEmptyCartAndListItemsAskingById
 	|cartId itemsOfCart|
@@ -459,8 +449,19 @@ test08CantListCartAfter30Min
 
 ! !
 
+
+!StoreInternalApiRestTest methodsFor: 'setUp/tearDown' stamp: 'JCCCT 11/17/2019 10:16:07'!
+setUp
+	storeFactory := StoreTestObjectsFactory new.
+	storeInternalApiRest := storeFactory defaultStoreInternalApiRest.
+	clock := storeFactory clock.
+
+	
+
+! !
+
 
-!classDefinition: #Cart category: #TusLibros!
+!classDefinition: #Cart category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #Cart
 	instanceVariableNames: 'catalog items'
 	classVariableNames: ''
@@ -540,7 +541,7 @@ add: aQuantity of: anItem
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cart class' category: #TusLibros!
+!classDefinition: 'Cart class' category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Cart class
 	instanceVariableNames: ''!
 
@@ -550,41 +551,45 @@ acceptingItemsOf: aCatalog
 	^self new initializeAcceptingItemsOf: aCatalog ! !
 
 
-!classDefinition: #CartWithTime category: #TusLibros!
+!classDefinition: #CartWithTime category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #CartWithTime
 	instanceVariableNames: 'cart time'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CartWithTime methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 20:56:04'!
+!CartWithTime methodsFor: 'adding' stamp: 'jav 11/18/2019 20:56:04'!
 addToCartAnItem:anItem aQuantityOf: aQuantity
 	cart add:aQuantity of:anItem.! !
 
-!CartWithTime methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 21:08:29'!
+
+!CartWithTime methodsFor: 'time' stamp: 'jav 11/18/2019 20:54:09'!
+modifyTime:aTime
+	time:=aTime! !
+
+!CartWithTime methodsFor: 'time' stamp: 'jav 11/18/2019 20:53:41'!
+time
+	^time. ! !
+
+
+!CartWithTime methodsFor: 'cart' stamp: 'jav 11/18/2019 21:08:29'!
 cart
 	^cart. ! !
 
-!CartWithTime methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 20:37:23'!
+
+!CartWithTime methodsFor: 'initialization' stamp: 'jav 11/18/2019 20:37:23'!
 initializeWithCart:aCart atTime:aTime
 	cart:=aCart.
 	time:=aTime. ! !
 
-!CartWithTime methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 21:05:07'!
+
+!CartWithTime methodsFor: 'queries' stamp: 'jav 11/18/2019 21:05:07'!
 listItemsOfCart
 	^cart items.! !
 
-!CartWithTime methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 20:54:09'!
-modifyTime:aTime
-	time:=aTime! !
-
-!CartWithTime methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 20:53:41'!
-time
-	^time. ! !
-
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'CartWithTime class' category: #TusLibros!
+!classDefinition: 'CartWithTime class' category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 CartWithTime class
 	instanceVariableNames: ''!
 
@@ -593,7 +598,7 @@ initializeWithCart:aCart atTime:aTime
 	^self new initializeWithCart:aCart atTime:aTime! !
 
 
-!classDefinition: #Cashier category: #TusLibros!
+!classDefinition: #Cashier category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #Cashier
 	instanceVariableNames: 'salesBook'
 	classVariableNames: ''
@@ -626,7 +631,7 @@ initializeWith:aSalesBook
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cashier class' category: #TusLibros!
+!classDefinition: 'Cashier class' category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Cashier class
 	instanceVariableNames: ''!
 
@@ -640,7 +645,7 @@ initializeWith: aSalesBook
 	^self new initializeWith:aSalesBook. ! !
 
 
-!classDefinition: #CreditCard category: #TusLibros!
+!classDefinition: #CreditCard category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #CreditCard
 	instanceVariableNames: 'name number expDate'
 	classVariableNames: ''
@@ -667,7 +672,7 @@ number
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'CreditCard class' category: #TusLibros!
+!classDefinition: 'CreditCard class' category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 CreditCard class
 	instanceVariableNames: ''!
 
@@ -677,7 +682,7 @@ withNumber:aNumber expirationDate:aDate name:aName
 	^self new createWithNumber:aNumber expirationDate:aDate name:aName.! !
 
 
-!classDefinition: #FakeDate category: #TusLibros!
+!classDefinition: #FakeDate category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #FakeDate
 	instanceVariableNames: 'lastDate increment'
 	classVariableNames: ''
@@ -700,7 +705,7 @@ now
 ! !
 
 
-!classDefinition: #FakeMerchantProcessor category: #TusLibros!
+!classDefinition: #FakeMerchantProcessor category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #FakeMerchantProcessor
 	instanceVariableNames: 'closure'
 	classVariableNames: ''
@@ -717,7 +722,7 @@ withAction:aClosure
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'FakeMerchantProcessor class' category: #TusLibros!
+!classDefinition: 'FakeMerchantProcessor class' category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 FakeMerchantProcessor class
 	instanceVariableNames: ''!
 
@@ -726,7 +731,7 @@ withAction:aClosure
 	^ self new withAction: aClosure.! !
 
 
-!classDefinition: #Sale category: #TusLibros!
+!classDefinition: #Sale category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #Sale
 	instanceVariableNames: 'total items'
 	classVariableNames: ''
@@ -759,7 +764,7 @@ hash
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Sale class' category: #TusLibros!
+!classDefinition: 'Sale class' category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Sale class
 	instanceVariableNames: ''!
 
@@ -773,7 +778,7 @@ of: aTotal withItems: someItems
 	^self new initializeTotal: aTotal withItems: someItems.! !
 
 
-!classDefinition: #StoreInternalApiRest category: #TusLibros!
+!classDefinition: #StoreInternalApiRest category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #StoreInternalApiRest
 	instanceVariableNames: 'catalog carts nextCartId usersWithPassword clock salesOfUsers merchantProcessor'
 	classVariableNames: ''
@@ -791,52 +796,6 @@ initializeStoreInternalApiRestWithCatalog: aCatalog andUsersWithPasswords: aUser
 	nextCartId _ 0.! !
 
 
-!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 20:57:38'!
-addToCart: cartId item: anItem quantity: aQuantity 
-	self signalInvalidCart: cartId.
-	self signalExpiredCart: cartId.
-
-	(carts at: cartId) modifyTime: clock now. 
-	(carts at: cartId) addToCartAnItem:anItem aQuantityOf: aQuantity! !
-
-!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 21:08:59'!
-checkoutWithCartId: cartId withCardNumber: cardNumber expirationDate: aDate name: aName user:userId
-	|aCashier aSalesBook aCard aSale|
-	self signalInvalidCart: cartId.
-	self signalExpiredCart: cartId.
-	(usersWithPassword includesKey: userId) ifFalse:[self error: self class InvalidUserMessage ].
-
-	aSalesBook := OrderedCollection new.
-	aCashier := Cashier initializeWith: aSalesBook.
-	aCard := CreditCard withNumber: cardNumber expirationDate: aDate  name: aName.
-	aSale := aCashier checkout: (carts at: cartId) cart withCreditCard: aCard withMerchantProcessor: merchantProcessor.
-	salesOfUsers add: userId -> aSale.! !
-
-!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 20:52:13'!
-createCartOfUser: aUser WithPassword:aPassword 
-	self signalValidUser:aUser withPassword:aPassword.
-	
-	carts add: nextCartId->(CartWithTime initializeWithCart: (Cart acceptingItemsOf: catalog) atTime:(clock now)).
-	
-	nextCartId _ nextCartId+1.
-	^nextCartId-1.! !
-
-!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'JAV 11/11/2019 18:03:29'!
-isValidUser: aUser WithPassword: aPassword
-	^(usersWithPassword includesKey: aUser) and:[(usersWithPassword at: aUser) = aPassword].! !
-
-!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'jav 11/18/2019 21:01:23'!
-listItemsOfCart: aCartId
-	self signalInvalidCart: aCartId.
-	self signalExpiredCart: aCartId.
-	^ (carts at: aCartId) listItemsOfCart .! !
-
-!StoreInternalApiRest methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 10:14:47'!
-listOfPurchasesOfUser: aUser withPassword: aPassword
-	self signalValidUser:aUser withPassword:aPassword.
-	^salesOfUsers at: aUser.! !
-
-
 !StoreInternalApiRest methodsFor: 'signals' stamp: 'jav 11/18/2019 21:02:53'!
 signalExpiredCart: aCartId 
 	|aPreviousTime nextTime|
@@ -852,9 +811,58 @@ signalInvalidCart: aCartId
 signalValidUser:aUser withPassword:aPassword
 	(self isValidUser: aUser WithPassword: aPassword) ifFalse: [^self error: self class InvalidUserMessage].! !
 
+
+!StoreInternalApiRest methodsFor: 'user purchases' stamp: 'JCCCT 11/17/2019 10:14:47'!
+listOfPurchasesOfUser: aUser withPassword: aPassword
+	self signalValidUser:aUser withPassword:aPassword.
+	^salesOfUsers at: aUser.! !
+
+
+!StoreInternalApiRest methodsFor: 'validation' stamp: 'JAV 11/11/2019 18:03:29'!
+isValidUser: aUser WithPassword: aPassword
+	^(usersWithPassword includesKey: aUser) and:[(usersWithPassword at: aUser) = aPassword].! !
+
+
+!StoreInternalApiRest methodsFor: 'checkout' stamp: 'jav 11/18/2019 21:08:59'!
+checkoutWithCartId: cartId withCardNumber: cardNumber expirationDate: aDate name: aName user:userId
+	|aCashier aSalesBook aCard aSale|
+	self signalInvalidCart: cartId.
+	self signalExpiredCart: cartId.
+	(usersWithPassword includesKey: userId) ifFalse:[self error: self class InvalidUserMessage ].
+
+	aSalesBook := OrderedCollection new.
+	aCashier := Cashier initializeWith: aSalesBook.
+	aCard := CreditCard withNumber: cardNumber expirationDate: aDate  name: aName.
+	aSale := aCashier checkout: (carts at: cartId) cart withCreditCard: aCard withMerchantProcessor: merchantProcessor.
+	salesOfUsers add: userId -> aSale.! !
+
+
+!StoreInternalApiRest methodsFor: 'cart' stamp: 'JCCCT 11/18/2019 21:59:41'!
+addToCart: cartId item: anItem quantity: aQuantity 
+	self signalInvalidCart: cartId.
+	self signalExpiredCart: cartId.
+
+	(carts at: cartId) modifyTime: clock now. 
+	(carts at: cartId) addToCartAnItem:anItem aQuantityOf: aQuantity.! !
+
+!StoreInternalApiRest methodsFor: 'cart' stamp: 'jav 11/18/2019 20:52:13'!
+createCartOfUser: aUser WithPassword:aPassword 
+	self signalValidUser:aUser withPassword:aPassword.
+	
+	carts add: nextCartId->(CartWithTime initializeWithCart: (Cart acceptingItemsOf: catalog) atTime:(clock now)).
+	
+	nextCartId _ nextCartId+1.
+	^nextCartId-1.! !
+
+!StoreInternalApiRest methodsFor: 'cart' stamp: 'jav 11/18/2019 21:01:23'!
+listItemsOfCart: aCartId
+	self signalInvalidCart: aCartId.
+	self signalExpiredCart: aCartId.
+	^ (carts at: aCartId) listItemsOfCart .! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'StoreInternalApiRest class' category: #TusLibros!
+!classDefinition: 'StoreInternalApiRest class' category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 StoreInternalApiRest class
 	instanceVariableNames: ''!
 
@@ -877,7 +885,7 @@ invalidCartIdMessage
 	^'invalid cart id.'.! !
 
 
-!classDefinition: #StoreTestObjectsFactory category: #TusLibros!
+!classDefinition: #StoreTestObjectsFactory category: #TusLibros stamp: 'JCCCT 11/18/2019 22:11:12'!
 Object subclass: #StoreTestObjectsFactory
 	instanceVariableNames: 'today clock'
 	classVariableNames: ''
@@ -964,6 +972,23 @@ defaultStoreInternalApiRest
 	
 	^StoreInternalApiRest initializeStoreInternalApiRestWithCatalog:self defaultCatalog andUsersWithPasswords: self usersAndPasswords withClock: self clock withMerchantProcessor: self succesfullMerchantProcessor.! !
 
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/17/2019 09:02:18'!
+invalidCartId
+	"cualquier cosa que ponga aca va a ser muy fea, pero nil me asegura de que no va a ser usada como cart id y es solo para testing"
+	^nil.! !
+
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/15/2019 20:02:37'!
+invalidPassword
+	^'Nahuelito'! !
+
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/15/2019 20:02:06'!
+invalidUser
+	^'Juanito'! !
+
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/16/2019 15:51:42'!
+succesfullMerchantProcessor
+	^ FakeMerchantProcessor withAction: [true].! !
+
 !StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/15/2019 19:48:31'!
 usersAndPasswords
 	|aDic|
@@ -971,28 +996,10 @@ usersAndPasswords
 	aDic add: 'juan' -> 'Nahuel'.
 	^ aDic.! !
 
-
-!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/17/2019 09:02:18'!
-invalidCartId
-	"cualquier cosa que ponga aca va a ser muy fea, pero nil me asegura de que no va a ser usada como cart id y es solo para testing"
-	^nil.! !
-
-!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:02:37'!
-invalidPassword
-	^'Nahuelito'! !
-
-!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 20:02:06'!
-invalidUser
-	^'Juanito'! !
-
-!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/16/2019 15:51:42'!
-succesfullMerchantProcessor
-	^ FakeMerchantProcessor withAction: [true].! !
-
-!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 19:59:54'!
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/15/2019 19:59:54'!
 validPassword
 	^'Nahuel'! !
 
-!StoreTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'JCCCT 11/15/2019 19:59:40'!
+!StoreTestObjectsFactory methodsFor: 'store internal api rest' stamp: 'JCCCT 11/15/2019 19:59:40'!
 validUser
 	^'juan'! !
